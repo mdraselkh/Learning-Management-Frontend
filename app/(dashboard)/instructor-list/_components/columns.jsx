@@ -20,6 +20,7 @@ import { Modal } from "../../_components/Modal";
 import axios from "axios";
 import { showSuccessToast } from "@/app/utils/sweetAlert";
 import { useRouter } from "next/navigation";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 // Define the shape of your data
 const columnHelper = createColumnHelper();
@@ -117,8 +118,8 @@ export const columns =({updateUsersList})=> [
       const handleDelete = (id) => {
         console.log("Delete clicked for id:", id);
 
-        axios
-          .delete(`http://localhost:5000/api/users/deleteUser/${id}`)
+        axiosInstance
+          .delete(`/api/users/deleteUser/${id}`)
           .then((response) => {
             console.log("User deleted successfully:", response.data);
             showSuccessToast("User deleted successfully");
@@ -131,8 +132,8 @@ export const columns =({updateUsersList})=> [
       const handleBlocked = (id) => {
         console.log("Blocked clicked for id:", id);
 
-        axios
-          .patch(`http://localhost:5000/api/users/blocked/${id}`)
+        axiosInstance
+          .patch(`/api/users/blocked/${id}`)
           .then((response) => {
             console.log("User blocked successfully:", response.data);
             showSuccessToast("User blocked successfully");

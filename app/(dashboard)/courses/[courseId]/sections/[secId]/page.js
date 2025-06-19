@@ -1,6 +1,7 @@
 "use client";
 import EditSectionForm from "@/app/(dashboard)/_components/EditSectionForm";
 import AlertBanner from "@/app/_components/AlertBanner";
+import axiosInstance from "@/app/utils/axiosInstance";
 import axios from "axios";
 import { redirect } from "next/navigation";
 import { use, useEffect, useState } from "react";
@@ -14,8 +15,8 @@ const SectionDetailsPage = ({ params }) => {
 
   const fetchSection = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/section/${courseId}/getSection/${secId}`
+      const response = await axiosInstance.get(
+        `/api/section/${courseId}/getSection/${secId}`
       );
       console.log(response.data);
       setSection(response.data?.data);

@@ -3,6 +3,7 @@ import React, { use, useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/app/loading";
 import EditUserForm from "@/app/(dashboard)/_components/EditUserForm";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const Page = ({ params }) => {
   const unwrappedParams = use(params);
@@ -15,8 +16,8 @@ const Page = ({ params }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/users/getUser/${userId}`
+        const response = await axiosInstance.get(
+          `/api/users/getUser/${userId}`
         );
         console.log("Fetched user:", response.data.user);
         setUser(response.data.user);

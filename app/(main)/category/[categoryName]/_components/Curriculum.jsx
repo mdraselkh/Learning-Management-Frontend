@@ -1,3 +1,4 @@
+import axiosInstance from "@/app/utils/axiosInstance";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CiLock } from "react-icons/ci";
@@ -13,8 +14,8 @@ const Curriculum = ({ lessonData, coursewithId }) => {
 
   const fetchSectionsAccess = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/section/${coursewithId.id}/getSections?userId=${user?.userId}`
+      const response = await axiosInstance.get(
+        `/api/section/${coursewithId.id}/getSections?userId=${user?.userId}`
       );
       console.log(response);
       setAccessList(response.data.sections);

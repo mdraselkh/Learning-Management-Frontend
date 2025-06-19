@@ -4,14 +4,15 @@ import CategoryBanner from "./CategoryBanner";
 import courseImg1 from "/public/images/course1.png";
 import CourseCard from "../../_components/CourseCard";
 import axios from "axios";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const CategoryPage = ({ categoryName }) => {
   const [courseData, setCourseData] = useState([]);
 
   const fetchCoursesData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/courses/getCoursesWithRatings"
+      const response = await axiosInstance.get(
+        "/api/courses/getCoursesWithRatings"
       );
       console.log(response);
       setCourseData(response.data);

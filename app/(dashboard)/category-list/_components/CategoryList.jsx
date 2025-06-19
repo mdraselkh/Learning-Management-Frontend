@@ -4,6 +4,7 @@ import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import axios from "axios";
 import Loading from "@/app/loading";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -12,8 +13,8 @@ const CategoryList = () => {
   const fetchCategoriesData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "http://localhost:5000/api/categories/getAllCategories"
+      const response = await axiosInstance.get(
+        "/api/categories/getAllCategories"
       );
       console.log(response);
       setCategories(response.data);

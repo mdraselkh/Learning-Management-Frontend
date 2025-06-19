@@ -33,6 +33,7 @@ import { Modal } from "../../_components/Modal";
 import { CategoryForm } from "./CategoryForm";
 import { showSuccessToast } from "@/app/utils/sweetAlert";
 import axios from "axios";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 export function DataTable({ columns, data, updateCategoriesList }) {
   const [sorting, setSorting] = useState([]);
@@ -46,8 +47,8 @@ export function DataTable({ columns, data, updateCategoriesList }) {
   const handleCreateCategory = (category) => {
     console.log("New Category:", category);
 
-    axios
-      .post("http://localhost:5000/api/categories/createCategories", category)
+    axiosInstance
+      .post("/api/categories/createCategories", category)
       .then((response) => {
         console.log("Category created successfully:", response.data);
         showSuccessToast("Category created successfully");

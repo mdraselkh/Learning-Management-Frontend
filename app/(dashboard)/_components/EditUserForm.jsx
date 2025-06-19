@@ -1,5 +1,6 @@
 "use client";
 import { loadUser, updateUser } from "@/app/store/authSlice";
+import axiosInstance from "@/app/utils/axiosInstance";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -66,8 +67,8 @@ const EditUserForm = ({ user }) => {
     }
 
     try {
-      const res = await axios.patch(
-        `http://localhost:5000/api/users/updateUser/${user.id}`,
+      const res = await axiosInstance.patch(
+        `/api/users/updateUser/${user.id}`,
         form,
         {
           headers: {

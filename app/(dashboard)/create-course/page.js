@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import CreateCourseForm from './_components/CreateCourseForm';
 import axios from 'axios';
+import axiosInstance from '@/app/utils/axiosInstance';
 
 const page = () => {
     const [categories, setCategories] = useState([]);
@@ -10,8 +11,8 @@ const page = () => {
     
     useEffect(() => {
       // Fetch categories from the API using Axios
-      axios
-        .get("http://localhost:5000/api/categories/getAllCategories") // Replace with your actual API endpoint
+      axiosInstance
+        .get("/api/categories/getAllCategories") // Replace with your actual API endpoint
         .then((response) => {
            
               setCategories(response.data);
@@ -22,8 +23,8 @@ const page = () => {
     }, []);
   
     useEffect(() => {
-      axios
-        .get("http://localhost:5000/api/users/getAllusers")
+      axiosInstance
+        .get("/api/users/getAllusers")
         .then((response) => {
           const filteredUsers = response.data.users.filter(
             (user) => user.role === "instructor"

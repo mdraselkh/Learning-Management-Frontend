@@ -7,6 +7,7 @@ import { DataTable } from "./data-table";
 import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa";
 import Loading from "@/app/loading";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const TransactionListTable = ({isDashboard}) => {
   const [transactions, setTransactions] = useState([]);
@@ -15,8 +16,8 @@ const TransactionListTable = ({isDashboard}) => {
   const fetchTransactionData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "http://localhost:5000/api/payment/getAllPayments"
+      const response = await axiosInstance.get(
+        "/api/payment/getAllPayments"
       );
       console.log(response);
       console.log(response.data.data);

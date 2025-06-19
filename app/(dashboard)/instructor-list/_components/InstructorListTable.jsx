@@ -7,6 +7,7 @@ import { DataTable } from "./data-table";
 import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa";
 import Loading from "@/app/loading";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const InstructorListTable = () => {
   const [users, setUsers] = useState([]);
@@ -15,8 +16,8 @@ const InstructorListTable = () => {
   const fetchUsersData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "http://localhost:5000/api/users/getAllusers"
+      const response = await axiosInstance.get(
+        "/api/users/getAllusers"
       );
       console.log(response.data.users);
       const filteredUsers = response.data.users.filter(

@@ -3,6 +3,7 @@ import React, { use, useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/app/loading";
 import EditEnrollmentForm from "../_components/EditEnrollmentForm";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const page = ({ params }) => {
   const unwrappedParams = use(params);
@@ -14,8 +15,8 @@ const page = ({ params }) => {
     const fetchEnrollData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `http://localhost:5000/api/enrollment/getAllEnrollmentUsers/${enrollId}` // Replace with your actual API endpoint
+        const response = await axiosInstance.get(
+          `/api/enrollment/getAllEnrollmentUsers/${enrollId}` // Replace with your actual API endpoint
         );
         console.log(response.data.data);
         const transformedData = response.data.data.map((item) => ({

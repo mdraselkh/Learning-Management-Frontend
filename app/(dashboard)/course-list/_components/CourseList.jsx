@@ -6,6 +6,7 @@ import Loading from "@/app/loading";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { useSelector } from "react-redux";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const CourseList = ({isInstructorDash}) => {
   const [courses, setCourses] = useState([]);
@@ -15,8 +16,8 @@ const CourseList = ({isInstructorDash}) => {
 
   useEffect(() => {
     // Fetch categories from the API using Axios
-    axios
-      .get(`http://localhost:5000/api/categories/getAllCategories`) // Replace with your actual API endpoint
+    axiosInstance
+      .get(`/api/categories/getAllCategories`) // Replace with your actual API endpoint
       .then((response) => {
         setCategories(response.data);
       })
@@ -28,8 +29,8 @@ const CourseList = ({isInstructorDash}) => {
   const fetchCourseData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/courses/getAllCourses?userId=${user?.userId}&role=${user?.role}`
+      const response = await axiosInstance.get(
+        `/api/courses/getAllCourses?userId=${user?.userId}&role=${user?.role}`
       );
       console.log(response.data?.data);
 

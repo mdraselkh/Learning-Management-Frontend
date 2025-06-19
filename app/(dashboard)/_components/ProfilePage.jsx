@@ -8,6 +8,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
 import axios from "axios";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,8 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/dashboard/dashboard-stats"
+        const response = await axiosInstance.get(
+          "/api/dashboard/dashboard-stats"
         );
         setStats(response.data);
       } catch (err) {

@@ -11,6 +11,7 @@ import {
   UserRound,
   Users,
 } from "lucide-react";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const DashboardStats = () => {
   const [stats, setStats] = useState({
@@ -25,8 +26,8 @@ const DashboardStats = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/dashboard/dashboard-stats"
+        const response = await axiosInstance.get(
+          "/api/dashboard/dashboard-stats"
         );
         setStats(response.data);
       } catch (err) {

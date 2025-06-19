@@ -5,6 +5,7 @@ import axios from "axios";
 import Loading from "@/app/loading";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const EnrollmentHistory = () => {
   const [enrollHistory, setEnrollHistory] = useState([]);
@@ -13,8 +14,8 @@ const EnrollmentHistory = () => {
   const fetchEnrollData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "http://localhost:5000/api/enrollment/getAllEnrollments" // Replace with your actual API endpoint
+      const response = await axiosInstance.get(
+        "/api/enrollment/getAllEnrollments" // Replace with your actual API endpoint
       );
       console.log(response.data.data); // Log full response for debugging
       const transformedData = response.data.data.map((item) => ({

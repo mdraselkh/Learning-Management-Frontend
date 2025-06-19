@@ -11,6 +11,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import Loading from "@/app/loading";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const RevenueChart = () => {
   const [data, setData] = useState([]);
@@ -20,8 +21,8 @@ const RevenueChart = () => {
   const fetchChartData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/dashboard/revenue-by-cat?filter=${filter}`
+      const res = await axiosInstance.get(
+        `/api/dashboard/revenue-by-cat?filter=${filter}`
       );
       console.log(res);
       setData(res.data);

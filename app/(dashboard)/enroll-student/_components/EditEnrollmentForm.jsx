@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 // Zod validation schema
 const formSchema = z.object({
@@ -81,8 +82,8 @@ const EditEnrollmentForm = ({ enroll }) => {
     console.log("Submitting form with values:", payload);
   
     try {
-      const response = await axios.patch(
-        `http://localhost:5000/api/enrollment/updateStatus/${enroll.studentId}`,
+      const response = await axiosInstance.patch(
+        `/api/enrollment/updateStatus/${enroll.studentId}`,
         payload // Send only the populated payload
       );
       console.log("Enrollment updated successfully:", response.data);
@@ -100,8 +101,8 @@ const EditEnrollmentForm = ({ enroll }) => {
       setIsLoading(true);
       try {
         const [studentsResponse, coursesResponse] = await Promise.all([
-          axios.get("http://localhost:5000/api/users/getAllusers"),
-          axios.get("http://localhost:5000/api/courses/getAllCourses"),
+          axiosInstance.get("/api/users/getAllusers"),
+          axiosInstance.get("/api/courses/getAllCourses"),
         ]);
 
         const filteredUsers = studentsResponse.data.users.filter(

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import CourseViewer from "../../_components/CourseViewer";
 import axios from "axios";
 import Loading from "@/app/loading";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const page = () => {
   const { slug } = useParams(); 
@@ -13,7 +14,7 @@ const page = () => {
 
   const fetchCourseContent = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/section/${courseId}/content`);
+      const res = await axiosInstance.get(`/api/section/${courseId}/content`);
       setCourseContent(res.data?.data);
     } catch (error) {
       console.error("Error loading course content:", error);

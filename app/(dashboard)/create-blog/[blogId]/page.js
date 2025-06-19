@@ -3,6 +3,7 @@ import React, { use, useEffect, useState } from 'react'
 import EditBlogForm from '../../_components/EditBlogForm'
 import axios from 'axios';
 import Loading from '@/app/loading';
+import axiosInstance from '@/app/utils/axiosInstance';
 
 const page = ({params}) => {
     const unwrappedParams = use(params);
@@ -15,8 +16,8 @@ const page = ({params}) => {
         const fetchBlogData= async ()=>{
             try {
                 setLoading(true);
-                const response = await axios.get(
-                  `http://localhost:5000/api/blog/getBlog/${blogId}` // Replace with your actual API endpoint
+                const response = await axiosInstance.get(
+                  `/api/blog/getBlog/${blogId}` // Replace with your actual API endpoint
                 );
                 console.log(response.data.data);
           

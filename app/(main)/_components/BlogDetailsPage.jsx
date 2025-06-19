@@ -3,6 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const BlogDetailsPage = ({ slug }) => {
   const [blogData, setBlogData] = useState([]);
@@ -17,8 +18,8 @@ const BlogDetailsPage = ({ slug }) => {
 
   const fetchBlogData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/blog/getAllBlogs"
+      const response = await axiosInstance.get(
+        "/api/blog/getAllBlogs"
       );
       setBlogData(response.data.data.filter((d) => d.status === "published"));
     } catch (error) {

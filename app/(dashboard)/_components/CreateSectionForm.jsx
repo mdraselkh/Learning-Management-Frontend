@@ -20,6 +20,7 @@ import { Loader2 } from "lucide-react";
 import SectionList from "./SectionList";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
 import { useEffect, useState } from "react";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 // Form validation schema
 const formSchema = z.object({
@@ -37,8 +38,8 @@ const CreateSectionForm = ({ course }) => {
   console.log(sectionList);
   const fetchSection = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/section/${course.id}/getAllSections`
+      const response = await axiosInstance.get(
+        `/api/section/${course.id}/getAllSections`
       );
       console.log(response.data);
       setSectionList(response.data?.data);
@@ -72,8 +73,8 @@ const CreateSectionForm = ({ course }) => {
   const onSubmit = async (values) => {
     console.log("Form submitted with values:", values); // Log to see what values are being passed
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/section/${course.id}/createSection`,
+      const response = await axiosInstance.post(
+        `/api/section/${course.id}/createSection`,
         values
       );
       console.log("API response:", response.data);
@@ -94,8 +95,8 @@ const CreateSectionForm = ({ course }) => {
   const onReorder = async (updateData) => {
     console.log(updateData);
     try {
-      await axios.patch(
-        `http://localhost:5000/api/section/${course.id}/reorderSections`,
+      await axiosInstance.patch(
+        `api/section/${course.id}/reorderSections`,
         {
           updateData,
         }

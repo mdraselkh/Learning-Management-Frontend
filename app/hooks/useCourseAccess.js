@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setAccessForCourse } from "../store/courseAccessSlice";
 import { getAccessFromStorage, setAccessToStorage } from "../utils/accessStorage";
+import axiosInstance from "../utils/axiosInstance";
 
 export const useCourseAccess = (userId, courseId) => {
   const dispatch = useDispatch();
@@ -23,8 +24,8 @@ export const useCourseAccess = (userId, courseId) => {
       }
 
       try {
-        const res = await axios.get(
-          `http://localhost:5000/api/section/${courseId}/getSections?userId=${userId}`
+        const res = await axiosInstance.get(
+          `/api/section/${courseId}/getSections?userId=${userId}`
         );
 
         const allSections = res.data.sections;

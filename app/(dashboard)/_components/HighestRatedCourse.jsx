@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 export default function HighestRatedCourses({ isDashbaord }) {
   const [courses, setCourses] = useState([]);
@@ -11,8 +12,8 @@ export default function HighestRatedCourses({ isDashbaord }) {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const res = await axios.get(
-        "http://localhost:5000/api/courses/top-rated"
+      const res = await axiosInstance.get(
+        "/api/courses/top-rated"
       );
       console.log(res);
       setCourses(res.data.data);

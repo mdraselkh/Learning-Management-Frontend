@@ -1,4 +1,5 @@
 "use client";
+import axiosInstance from "@/app/utils/axiosInstance";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -62,7 +63,7 @@ const UserForm = ({ role}) => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/users/register", form, {
+      const res = await axiosInstance.post("/api/users/register", form, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

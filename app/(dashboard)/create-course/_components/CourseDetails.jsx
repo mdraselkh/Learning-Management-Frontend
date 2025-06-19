@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import dynamic from "next/dynamic";
 import { FaPlus, FaTimes } from "react-icons/fa";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const CourseDetails = ({ courseData, setCourseData, errors, handleNext }) => {
   const [categories, setCategories] = useState([]);
@@ -31,8 +32,8 @@ const CourseDetails = ({ courseData, setCourseData, errors, handleNext }) => {
 
   useEffect(() => {
     // Fetch categories from the API using Axios
-    axios
-      .get("http://localhost:5000/api/categories/getAllCategories") // Replace with your actual API endpoint
+    axiosInstance
+      .get("/api/categories/getAllCategories") // Replace with your actual API endpoint
       .then((response) => {
         setCategories(response.data); // Assuming the response contains an array of categories
       })
@@ -42,8 +43,8 @@ const CourseDetails = ({ courseData, setCourseData, errors, handleNext }) => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/users/getAllusers")
+    axiosInstance
+      .get("/api/users/getAllusers")
       .then((response) => {
         const filteredUsers = response.data.users.filter(
           (user) => user.role === "instructor"

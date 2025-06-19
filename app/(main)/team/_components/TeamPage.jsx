@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import TeamBanner from "./TeamBanner";
 import TeamCard from "./TeamCard";
 import axios from "axios";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const TeamPage = () => {
   const [teamMember, setTeamMember] = useState([]);
@@ -11,8 +12,8 @@ const TeamPage = () => {
   useEffect(() => {
     const fetchTeamMembers = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/users/getAllusers"
+        const response = await axiosInstance.get(
+          "/api/users/getAllusers"
         );
         if (response.data) {
           const instructors = response.data.users.filter(

@@ -18,6 +18,7 @@ import { showSuccessToast } from "@/app/utils/sweetAlert";
 import { useState } from "react";
 import { EditCategoryModal } from "./EditCategoryModal";
 import { Modal } from "../../_components/Modal";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 // Define the shape of your data
 const columnHelper = createColumnHelper();
@@ -98,9 +99,9 @@ export const columns = ({ updateCategoriesList, categories }) => [
       const handleUpdateCategory = (updateCategory) => {
         console.log("New Category:", updateCategory);
 
-        axios
+        axiosInstance
           .put(
-            `http://localhost:5000/api/categories/updateCategory/${updateCategory.id}`,
+            `/api/categories/updateCategory/${updateCategory.id}`,
             updateCategory
           )
           .then((response) => {
@@ -127,8 +128,8 @@ export const columns = ({ updateCategoriesList, categories }) => [
       const handleDelete = (id) => {
         console.log("Delete clicked for id:", id);
 
-        axios
-          .delete(`http://localhost:5000/api/categories/deleteCategory/${id}`)
+        axiosInstance
+          .delete(`/api/categories/deleteCategory/${id}`)
           .then((response) => {
             console.log("Category deleted successfully:", response.data);
             showSuccessToast("Category deleted successfully");

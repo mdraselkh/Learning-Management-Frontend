@@ -30,6 +30,7 @@ import { FiTrash } from "react-icons/fi";
 import { Switch } from "@/components/ui/switch";
 import Loading from "@/app/loading";
 import Delete from "@/app/_components/Delete";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const sectionSchema = z.object({
   title: z.string().min(3, "Title is required"),
@@ -100,8 +101,8 @@ const EditSectionForm = ({
       formData.append("is_free", values.isFree);
 
       // Send FormData to backend
-      await axios.patch(
-        `http://localhost:5000/api/section/${courseId}/updateAnySection/${section.id}`,
+      await axiosInstance.patch(
+        `/api/section/${courseId}/updateAnySection/${section.id}`,
         formData,
         {
           headers: {

@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 // Zod validation schema
 const formSchema = z.object({
@@ -71,8 +72,8 @@ const EnrollmentForm = () => {
     const fetchStudentsAndCourses = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/users/getAllusers"
+        const response = await axiosInstance.get(
+          "/api/users/getAllusers"
         );
         console.log(response);
         const filteredUsers = response.data.users.filter(
@@ -90,8 +91,8 @@ const EnrollmentForm = () => {
           }))
         );
 
-        const courseResponse = await axios.get(
-          "http://localhost:5000/api/courses/getAllCourses"
+        const courseResponse = await axiosInstance.get(
+          "/api/courses/getAllCourses"
         );
         console.log(courseResponse);
 
@@ -115,8 +116,8 @@ const EnrollmentForm = () => {
   const onSubmit = async (values) => {
     console.log("Submitting form with values:", values); // Log submitted form values
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/enrollment/addEnrollment",
+      const response = await axiosInstance.post(
+        "/api/enrollment/addEnrollment",
         values
       );
       console.log("Enrollment created successfully:", response.data);

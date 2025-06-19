@@ -5,6 +5,7 @@ import CourseCard from "./CourseCard";
 import Link from "next/link";
 import Pagination from "./Pagination";
 import axios from "axios";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const Courses = ({ isCoursePage }) => {
   const [activeTab, setActiveTab] = useState("All Courses");
@@ -12,8 +13,8 @@ const Courses = ({ isCoursePage }) => {
 
   const fetchCoursesData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/courses/getCoursesWithRatings"
+      const response = await axiosInstance.get(
+        "/api/courses/getCoursesWithRatings"
       );
       console.log(response);
       setCourseData(response.data.filter((c) => c.is_published));

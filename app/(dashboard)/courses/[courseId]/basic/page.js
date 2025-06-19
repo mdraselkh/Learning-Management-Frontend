@@ -3,6 +3,7 @@
 import EditCourseForm from "@/app/(dashboard)/create-course/_components/EditCourseForm";
 import AlertBanner from "@/app/_components/AlertBanner";
 import Loading from "@/app/loading";
+import axiosInstance from "@/app/utils/axiosInstance";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
@@ -21,8 +22,8 @@ const CourseBasics = ({ params }) => {
     // Fetch course details
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/courses/getCourses/${courseId}`
+        const response = await axiosInstance.get(
+          `/api/courses/getCourses/${courseId}`
         );
         setCourse(response.data?.data);
       } catch (err) {
@@ -39,8 +40,8 @@ const CourseBasics = ({ params }) => {
     // Fetch categories
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/categories/getAllCategories"
+        const response = await axiosInstance.get(
+          "/api/categories/getAllCategories"
         );
         setCategories(response.data);
       } catch (err) {
@@ -55,8 +56,8 @@ const CourseBasics = ({ params }) => {
     // Fetch instructors
     const fetchInstructors = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/users/getAllusers"
+        const response = await axiosInstance.get(
+          "/api/users/getAllusers"
         );
         const filteredUsers = response.data.users.filter(
           (user) => user.role === "instructor"

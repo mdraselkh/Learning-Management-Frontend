@@ -6,6 +6,7 @@ import { TbCurrencyTaka } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const CartSideBar = ({ isCartOpen, setIsCartOpen }) => {
   const cartItems = useSelector((state) => state.cart.items) || [];
@@ -20,7 +21,7 @@ const CartSideBar = ({ isCartOpen, setIsCartOpen }) => {
     try {
       // Load Stripe.js
       const stripe = await loadStripe(
-        "pk_test_51QcN6EI7mCrPGtsyXFnTjS3AYoz27fW4k4fvFd3yGD56AMFqQXvK8DrvDmYY6LhJX7S6ui7WCPztx7WGUtkDXNzX00DLA9YslL"
+        `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
       );
 
       if (!stripe) {
@@ -41,8 +42,8 @@ const CartSideBar = ({ isCartOpen, setIsCartOpen }) => {
       const headers = { "Content-Type": "application/json" };
 
       // Make the API call to create a checkout session
-      const response = await axios.post(
-        "http://localhost:5000/api/payment/create-checkout-session",
+      const response = await axiosInstance.post(
+        "/api/payment/create-checkout-session",
         JSON.stringify(body),
         { headers }
       );

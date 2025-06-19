@@ -20,6 +20,7 @@ import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
 import axios from "axios";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import Image from "next/image";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 // Define the shape of your data
 // const columnHelper = createColumnHelper();
@@ -140,8 +141,8 @@ export const columns = (categories, updateCourseList, role) => {
         };
         const handleDelete = async (id) => {
           try {
-            await axios.delete(
-              `http://localhost:5000/api/courses/deleteCourses/${id}`
+            await axiosInstance.delete(
+              `/api/courses/deleteCourses/${id}`
             );
             showSuccessToast("Course deleted successfully!");
             updateCourseList();

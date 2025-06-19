@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 // Zod validation schema
 const formSchema = z.object({
@@ -56,8 +57,8 @@ const CreateCourseForm = ({ categories, instructors }) => {
     // Check if instructors are properly included in values
     console.log("Instructors value:", values.instructors);
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/courses/createCourses",
+      const response = await axiosInstance.post(
+        "/api/courses/createCourses",
         values
       );
       console.log("Course created successfully:", response.data);

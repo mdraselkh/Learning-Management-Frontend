@@ -28,6 +28,7 @@ import axios from "axios";
 import { FiTrash } from "react-icons/fi";
 import Delete from "@/app/_components/Delete";
 import { cn } from "@/lib/utils";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const courseSchema = z.object({
   title: z.string().min(3, "Title is required"),
@@ -185,8 +186,8 @@ const EditCourseForm = ({
       console.log([...formData.entries()]);
 
       // Send FormData to backend
-      await axios.patch(
-        `http://localhost:5000/api/courses/updateAnyFieldCourses/${course.id}`,
+      await axiosInstance.patch(
+        `/api/courses/updateAnyFieldCourses/${course.id}`,
         formData,
         {
           headers: {

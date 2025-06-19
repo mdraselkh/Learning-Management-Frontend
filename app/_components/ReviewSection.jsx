@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { showErrorToast, showSuccessToast } from "../utils/sweetAlert";
 import Image from "next/image";
 import Link from "next/link";
+import axiosInstance from "../utils/axiosInstance";
 
 const ReviewSection = ({ courseId }) => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
@@ -17,8 +18,8 @@ const ReviewSection = ({ courseId }) => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/review/getReviewByCourse/${courseId}`
+      const response = await axiosInstance.get(
+        `/api/review/getReviewByCourse/${courseId}`
       );
       console.log(response);
       setReviews(response.data.data);

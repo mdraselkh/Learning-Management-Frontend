@@ -11,14 +11,15 @@ import icon6 from "/public/images/content.png";
 import { FaPenFancy } from "react-icons/fa6";
 import axios from "axios";
 import Loading from "@/app/loading";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const Categories = ({ removeTop, isCoursePage }) => {
   const [categories, setCategories] = useState([]);
 
   const fetchCategoriesData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/categories/getCategoriesWithCourseCount"
+      const response = await axiosInstance.get(
+        "/api/categories/getCategoriesWithCourseCount"
       );
       console.log(response);
       setCategories(response.data.data);

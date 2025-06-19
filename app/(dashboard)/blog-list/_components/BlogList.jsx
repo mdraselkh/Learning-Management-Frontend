@@ -5,6 +5,7 @@ import axios from "axios";
 import Loading from "@/app/loading";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const BlogList = () => {
   const [blogList, setBlogList] = useState([]);
@@ -13,8 +14,8 @@ const BlogList = () => {
   const fetchBlogData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "http://localhost:5000/api/blog/getAllBlogs" // Replace with your actual API endpoint
+      const response = await axiosInstance.get(
+        "/api/blog/getAllBlogs" // Replace with your actual API endpoint
       );
       console.log(response.data.data);
 

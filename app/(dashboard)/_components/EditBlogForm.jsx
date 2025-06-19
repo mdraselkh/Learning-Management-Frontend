@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
 import { Textarea } from "@/components/ui/textarea";
 import { useSelector } from "react-redux";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 // Zod validation schema
 const formSchema = z.object({
@@ -84,8 +85,8 @@ const EditBlogForm = ({blog}) => {
     formData.append("author_id", userId); // Append author_id
   
     try {
-      const response = await axios.patch(
-        `http://localhost:5000/api/blog/updateBlog/${blog.id}`,
+      const response = await axiosInstance.patch(
+        `/api/blog/updateBlog/${blog.id}`,
         formData,
         {
           headers: {

@@ -19,6 +19,7 @@ import { FiTrash } from "react-icons/fi";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
 import axios from "axios";
 import Image from "next/image";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 // Define the shape of your data
 const columnHelper = createColumnHelper();
@@ -135,8 +136,8 @@ export const columns = (updateBlogList) => [
 
       const handleDelete = async () => {
         try {
-          const response = await axios.delete(
-            `http://localhost:5000/api/blog/deleteBlog/${id}`
+          const response = await axiosInstance.delete(
+            `/api/blog/deleteBlog/${id}`
           );
           showSuccessToast("Blog deleted successfully!");
           updateBlogList();

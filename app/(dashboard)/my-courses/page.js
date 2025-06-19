@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Loading from "@/app/loading";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 export default function MyCourses() {
   const [courses, setCourses] = useState([]);
@@ -25,8 +26,8 @@ export default function MyCourses() {
   const fetchCourseData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/courses/${user?.userId}/progress`
+      const response = await axiosInstance.get(
+        `/api/courses/${user?.userId}/progress`
       );
       console.log(response);
 

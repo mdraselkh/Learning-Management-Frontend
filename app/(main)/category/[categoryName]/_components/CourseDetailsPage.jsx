@@ -12,6 +12,7 @@ import CourseCard from "@/app/(main)/_components/CourseCard";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useCourseAccess } from "@/app/hooks/useCourseAccess";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const CourseDetailsPage = ({ slug }) => {
   const [categoryName, setCategoryName] = useState(null);
@@ -22,8 +23,8 @@ const CourseDetailsPage = ({ slug }) => {
 
   const fetchCourseData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/courses/getCoursesWithRatings"
+      const response = await axiosInstance.get(
+        "/api/courses/getCoursesWithRatings"
       );
       console.log("Fetched courses:", response);
       setCourseData(response.data);
@@ -75,8 +76,8 @@ const CourseDetailsPage = ({ slug }) => {
     if (!course?.id) return; // Make sure course is defined
 
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/courses/getCourses/${course.id}`
+      const response = await axiosInstance.get(
+        `/api/courses/getCourses/${course.id}`
       );
       console.log("Course details:", response.data);
       setCourseWithId(response.data.data);
@@ -94,8 +95,8 @@ const CourseDetailsPage = ({ slug }) => {
     if (!course?.id) return; // Make sure course is defined
 
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/section/${course.id}/getAllSections`
+      const response = await axiosInstance.get(
+        `/api/section/${course.id}/getAllSections`
       );
       console.log("Lesson details:", response.data);
       setLessonData(response.data.data.filter((l) => l.is_published));

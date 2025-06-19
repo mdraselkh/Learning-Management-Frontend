@@ -1,6 +1,7 @@
 "use client";
 import { userSchema, userSchemaLogin } from "@/app/_components/userSchema";
 import { login } from "@/app/store/authSlice";
+import axiosInstance from "@/app/utils/axiosInstance";
 import {
   showErrorToast,
   showInfoToast,
@@ -43,8 +44,8 @@ const LoginForm = () => {
     try {
       const validateData = userSchemaLogin.parse(formData);
 
-      const response = await axios.post(
-        "http://localhost:5000/api/users/login",
+      const response = await axiosInstance.post(
+        "/api/users/login",
         validateData
       );
 

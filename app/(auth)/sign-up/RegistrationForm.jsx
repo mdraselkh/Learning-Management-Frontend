@@ -8,6 +8,7 @@ import { userSchema, userSchemaRegister } from "@/app/_components/userSchema";
 import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -36,8 +37,8 @@ const RegistrationForm = () => {
     try {
       const validateData = userSchemaRegister.parse(formData);
 
-      const response = await axios.post(
-        "http://localhost:5000/api/users/register",
+      const response = await axiosInstance.post(
+        "/api/users/register",
         validateData
       );
 

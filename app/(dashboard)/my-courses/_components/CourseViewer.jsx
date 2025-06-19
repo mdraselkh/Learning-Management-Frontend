@@ -1,5 +1,6 @@
 "use client";
 import ReviewSection from "@/app/_components/ReviewSection";
+import axiosInstance from "@/app/utils/axiosInstance";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -17,8 +18,8 @@ export default function CourseViewer({ courseContent, onBack }) {
 
   useEffect(() => {
     const fetchCompletedSections = async () => {
-      const res = await axios.get(
-        `http://localhost:5000/api/section/${user?.userId}/completed`
+      const res = await axiosInstance.get(
+        `/api/section/${user?.userId}/completed`
       );
       console.log(res);
       setCompletedSectionIds(res.data.data);
@@ -33,8 +34,8 @@ export default function CourseViewer({ courseContent, onBack }) {
     if (completedSectionIds.includes(selectedSection.id)) return;
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/section/mark-complete",
+      const res = await axiosInstance.post(
+        "/api/section/mark-complete",
         {
           student_id: user.userId,
           section_id: selectedSection.id,

@@ -3,14 +3,15 @@ import React, { useEffect, useState } from "react";
 import img1 from "/public/images/blogimg.png";
 import BlogCard from "./BlogCard";
 import axios from "axios";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const BlogSection = () => {
   const [blogData, setBlogData] = useState([]);
 
   const fetchBlogData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/blog/getAllBlogs"
+      const response = await axiosInstance.get(
+        "/api/blog/getAllBlogs"
       );
       console.log(response.data);
 

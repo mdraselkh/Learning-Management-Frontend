@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { DataTable } from "./data-table";
 import { useSelector } from "react-redux";
 import { columns } from "./columns";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const PaymentHistory = ({isDashboard}) => {
   const [payments, setPayments] = useState([]);
@@ -14,8 +15,8 @@ const PaymentHistory = ({isDashboard}) => {
   const fetchTransactionData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `http://localhost:5000/api/payment//getPaymentByStudent/${user.userId}`
+      const response = await axiosInstance.get(
+        `/api/payment//getPaymentByStudent/${user.userId}`
       );
       console.log(response);
       console.log(response.data.data);

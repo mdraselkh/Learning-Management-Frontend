@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { clearAllAccess } from "@/app/store/courseAccessSlice";
 import { clearAccessStorage } from "@/app/utils/accessStorage";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState(null);
@@ -29,8 +30,8 @@ const Navbar = () => {
   const fetchCourseData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "http://localhost:5000/api/courses/getAllCourses"
+      const response = await axiosInstance.get(
+        "/api/courses/getAllCourses"
       );
       console.log(response.data?.data);
 

@@ -2,6 +2,7 @@
 import SectionList from "@/app/(dashboard)/_components/SectionList";
 import Loading from "@/app/loading";
 import { setCanAccess } from "@/app/store/courseAccessSlice";
+import axiosInstance from "@/app/utils/axiosInstance";
 import axios from "axios";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -24,8 +25,8 @@ const SuccessPage = () => {
   useEffect(() => {
     const verifyPayment = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:5000/api/payment/verify-payment?session_id=${sessionId}`
+        const res = await axiosInstance.get(
+          `/api/payment/verify-payment?session_id=${sessionId}`
         );
         console.log(res);
         if (res.data.success) {

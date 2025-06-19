@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
 import { Textarea } from "@/components/ui/textarea";
 import { useSelector } from "react-redux";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 // Zod validation schema
 const formSchema = z.object({
@@ -84,8 +85,8 @@ const CreateBlogForm = () => {
     formData.append("author_id", userId); // Append author_id
   
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/blog/addblog",
+      const response = await axiosInstance.post(
+        "/api/blog/addblog",
         formData,
         {
           headers: {

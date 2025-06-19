@@ -1,14 +1,12 @@
-import React from 'react'
-import HomePage from './_components/HomePage'
-import NavHero from './_components/NavHero'
+import React from "react";
+import HomePage from "./_components/HomePage";
+import NavHero from "./_components/NavHero";
 
-const page = () => {
+export default function Page() {
   return (
-    <div>
+    <div className="">
       <NavHero />
-      <HomePage/>
-      </div>
-  )
+      <HomePage />
+    </div>
+  );
 }
-
-export default page

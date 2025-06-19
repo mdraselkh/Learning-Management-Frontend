@@ -19,7 +19,7 @@ const CourseDetailsBanner = ({ Course, coursewithId, hasFullAccess }) => {
   console.log(user);
 
   const handleEnroll = () => {
-    if (isAuthenticated) {
+    if (user && isAuthenticated) {
       dispatch(addToCart(Course));
     } else {
       router.push("/login");

@@ -388,7 +388,7 @@ const Navbar = () => {
               </span>
             </button>
             {/* Auth Links */}
-            {user && user.role === "student" ? (
+            {user && user?.role  ? (
               <div
                 className="relative"
                 onMouseEnter={() => setHover(true)}

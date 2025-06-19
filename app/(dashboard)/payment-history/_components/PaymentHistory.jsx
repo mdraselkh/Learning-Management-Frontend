@@ -16,7 +16,7 @@ const PaymentHistory = ({isDashboard}) => {
     try {
       setLoading(true);
       const response = await axiosInstance.get(
-        `/api/payment//getPaymentByStudent/${user.userId}`
+        `/api/payment//getPaymentByStudent/${user?.userId}`
       );
       console.log(response);
       console.log(response.data.data);

@@ -15,7 +15,7 @@ export default function CourseCard({ course, onStartLearning }) {
         />
       </div>
       <div className="p-5">
-        <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
+        <h3 className="text-xl font-semibold mb-2 line-clamp-2">{course.title}</h3>
         <div className="text-sm text-gray-500 mb-2">
           {course.completed_sections} of {course.total_sections} sections
           completed

@@ -1,41 +1,66 @@
 "use client";
+import axiosInstance from "@/app/utils/axiosInstance";
+import { useEffect, useState } from "react";
 import { FaBook, FaUsers, FaStar, FaMoneyBill, FaVideo } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const InstructorStats = () => {
-   const stats = {
-    totalCourses: 5,
-    totalStudents: 320,
-    avgRating: 4.6,
-    totalLessons: 42,
-    totalEarnings: 18500,
-  };
+  const [stats, setStats] = useState({
+    totalEarnings: 0,
+    totalCourses: 0,
+    totalStudents: 0,
+    avgRating: 0,
+    totalLessons: 0,
+  });
+  const user=useSelector((state)=>state.auth.user);
 
-  const items = [
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/api/dashboard/instructor-dashboard-stats/${user?.userId}`
+        );
+        setStats(response.data);
+      } catch (err) {
+        console.error("Failed to fetch dashboard stats", err);
+      }
+    };
+    fetchStats();
+  }, []);
+
+  const USD_TO_BDT = 110;
+  const revenue = parseFloat(stats.totalEarnings) * USD_TO_BDT;
+
+   const items = [
     {
-      label: "Courses",
+      label: "Total Earnings",
+      value: `৳${revenue.toLocaleString()}`,
+      icon: <FaMoneyBill className="text-green-500" />,
+    },
+    {
+      label: "Total Courses",
       value: stats.totalCourses,
-      icon: <FaBook className="text-blue-500" />,
+      icon: <FaBook className="text-blue-600" />,
     },
     {
-      label: "Students",
+      label: "Total Students",
       value: stats.totalStudents,
-      icon: <FaUsers className="text-green-500" />,
+      icon: <FaUsers className="text-purple-500" />,
     },
-    
     {
-      label: "Lessons",
+      label: "Average Rating",
+      value: stats.avgRating,
+      icon: <FaStar className="text-yellow-500" />,
+    },
+    {
+      label: "Total Lessons",
       value: stats.totalLessons,
-      icon: <FaVideo className="text-purple-500" />,
-    },
-    {
-      label: "Earnings",
-      value: `৳${stats.totalEarnings}`,
-      icon: <FaMoneyBill className="text-emerald-500" />,
+      icon: <FaVideo className="text-red-500" />,
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
       {items.map((item, idx) => (
         <div
           key={idx}

@@ -4,7 +4,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000',
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  // baseURL: 'http://localhost:5000',
   headers: {
     "Content-Type": "application/json",
   },

@@ -13,7 +13,7 @@ const Page = () => {
       <div className="flex items-center gap-4 mb-8 p-5 bg-white rounded">
         <div className="w-16 h-16 relative">
           <Image
-            src={user?.image_url || "/default-avatar.png"}
+            src={user?.image_url || "/images/people.png"}
             alt={user?.name || "Instructor"}
             fill
             className="rounded-full object-cover border-2 border-blue-500 shadow"

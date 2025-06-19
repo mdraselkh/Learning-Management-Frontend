@@ -76,7 +76,7 @@ const ReviewSection = ({ courseId }) => {
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10">
                   <Image
-                    src={review.image_url}
+                    src={review.image_url || '/images/people.png'}
                     alt="profileImg"
                     width={100}
                     height={100}

@@ -49,8 +49,8 @@ const ReviewSection = ({ courseId }) => {
     console.log(reviewPayload);
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/review/addreview",
+      const res = await axiosInstance.post(
+        "/api/review/addreview",
         reviewPayload
       );
       console.log(res);

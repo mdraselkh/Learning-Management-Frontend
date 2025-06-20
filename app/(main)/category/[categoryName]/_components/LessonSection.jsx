@@ -5,7 +5,7 @@ const LessonSection = ({ lesson }) => {
   return (
     <div className="flex flex-col items-start justify-between gap-8">
       <div>
-        <h2 className="text-4xl text-black font-semibold mb-6 font-serif">
+        <h2 className="text-2xl md:text-4xl text-black font-semibold mb-6 font-serif">
           {lesson.title}
         </h2>
         <h3 className="text-lg font-semibold mb-3">{lesson.subtitle}</h3>

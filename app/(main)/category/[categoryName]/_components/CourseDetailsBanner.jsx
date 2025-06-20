@@ -44,11 +44,11 @@ const CourseDetailsBanner = ({ Course, coursewithId, hasFullAccess }) => {
       {Course && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-20">
           <div className="container mx-auto max-w-7xl flex flex-row items-center justify-between px-8 xl:px-0">
-            <div className="flex flex-col items-start justify-center gap-6 px-8 xl:px-0">
-              <h3 className="text-white font-semibold text-[8px] md:text-base uppercase">
+            <div className="flex flex-col items-start justify-center gap-6 xl:px-0">
+              <h3 className="text-white font-semibold text-xs md:text-base uppercase">
                 {Course.categoryname}
               </h3>
-              <h1 className="text-lg md:text-4xl lg:text-5xl text-white font-bold max-w-3xl">
+              <h1 className="text-xl md:text-4xl lg:text-5xl text-white font-bold max-w-3xl">
                 {Course.title}
               </h1>
               <div className="flex items-center gap-2 mb-4">

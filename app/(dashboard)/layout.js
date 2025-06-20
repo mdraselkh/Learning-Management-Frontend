@@ -4,7 +4,7 @@ import Navbar from "./_components/Navbar";
 import SideBar from "./_components/SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, logout } from "../store/authSlice";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function DashboardLayout({ children }) {
   const [menuShow, setMenuShow] = useState(false);
@@ -17,6 +17,12 @@ export default function DashboardLayout({ children }) {
     dispatch(logout());
     router.push("/login");
   };
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setMenuShow(false);
+  }, [pathname]);
+
   useEffect(() => {
     if (!user) {
       dispatch(loadUser());

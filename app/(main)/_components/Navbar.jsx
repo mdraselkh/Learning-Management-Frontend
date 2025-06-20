@@ -10,7 +10,7 @@ import { CgClose } from "react-icons/cg";
 import CartSideBar from "./CartSideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/app/store/authSlice";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import { clearAllAccess } from "@/app/store/courseAccessSlice";
 import { clearAccessStorage } from "@/app/utils/accessStorage";
@@ -27,12 +27,16 @@ const Navbar = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsMenuOpen(false); 
+  }, [pathname]);
+
   const fetchCourseData = async () => {
     try {
       setLoading(true);
-      const response = await axiosInstance.get(
-        "/api/courses/getAllCourses"
-      );
+      const response = await axiosInstance.get("/api/courses/getAllCourses");
       console.log(response.data?.data);
 
       setCourses(response.data?.data);
@@ -388,7 +392,7 @@ const Navbar = () => {
               </span>
             </button>
             {/* Auth Links */}
-            {user && user?.role  ? (
+            {user && user?.role ? (
               <div
                 className="relative"
                 onMouseEnter={() => setHover(true)}
@@ -453,13 +457,14 @@ const Navbar = () => {
           </div>
         </div>
 
+       
         {isMenuOpen && (
-          <div className="lg:hidden bg-white text-black h-screen font-sans transition-all duration-1000 ease-linear">
-            <ul className="flex flex-col items-start py-2">
+          <div className="lg:hidden bg-white text-black h-screen font-sans transition-all duration-500 ease-in-out overflow-y-auto">
+            <ul className="flex flex-col p-4">
               {MenuList.map((menuItem) => (
-                <li key={menuItem.id} className=" py-4 w-full">
+                <li key={menuItem.id} className="mb-2">
                   <button
-                    className="flex justify-between items-center w-full text-base hover:text-yellow-500"
+                    className="flex justify-between items-center w-full px-2 py-3 font-semibold hover:text-yellow-500"
                     onClick={() =>
                       setDropdownOpen((prev) => ({
                         ...prev,
@@ -467,32 +472,82 @@ const Navbar = () => {
                       }))
                     }
                   >
-                    <span className="px-4">{menuItem.name}</span>
-                    {menuItem.children && (
-                      <span className="mr-2 text-lg transition-transform duration-300">
-                        {dropdownOpen[menuItem.id] ? (
-                          <span>
-                            <ChevronUp size={20} className="text-gray-800" />
-                          </span> // Up arrow
-                        ) : (
-                          <span>
-                            <ChevronDown size={20} className="text-gray-800" />
-                          </span> // Down arrow
-                        )}
-                      </span>
-                    )}
-                  </button>
-                  {menuItem.children && dropdownOpen[menuItem.id] && (
-                    <div className="flex flex-col mt-2">
-                      {menuItem.children.map((child) => (
-                        <Link
-                          key={child.id}
-                          href={child.link}
-                          className="py-2 text-sm hover:text-yellow-500 first:border-t first:border-gray-300 last:border-b last:border-yellow-500"
-                        >
-                          <span className="pl-5 ml-5">{child.name}</span>
-                        </Link>
+                    <Link href={menuItem.link || "#"}>{menuItem.name}</Link>
+                    {menuItem.children &&
+                      (dropdownOpen[menuItem.id] ? (
+                        <ChevronUp size={18} className="text-gray-800" />
+                      ) : (
+                        <ChevronDown size={18} className="text-gray-800" />
                       ))}
+                  </button>
+
+                  {/* Children */}
+                  {menuItem.children && dropdownOpen[menuItem.id] && (
+                    <div className="ml-4 mt-2 space-y-1">
+                      {/* For Courses Tab in Mobile */}
+                      {menuItem.name === "Courses" ? (
+                        <>
+                          <div className="flex gap-2 mb-4">
+                            <button
+                              className={`px-4 py-2 rounded ${
+                                activeTab === "free"
+                                  ? "bg-yellow-500 text-white"
+                                  : "bg-gray-200"
+                              }`}
+                              onClick={() => setActiveTab("free")}
+                            >
+                              Free
+                            </button>
+                            <button
+                              className={`px-4 py-2 rounded ${
+                                activeTab === "paid"
+                                  ? "bg-yellow-500 text-white"
+                                  : "bg-gray-200"
+                              }`}
+                              onClick={() => setActiveTab("paid")}
+                            >
+                              Paid
+                            </button>
+                          </div>
+
+                          {(activeTab === "free"
+                            ? freeByCategory
+                            : paidByCategory) &&
+                            Object.entries(
+                              activeTab === "free"
+                                ? freeByCategory
+                                : paidByCategory
+                            ).map(([category, courseList]) => (
+                              <div key={category}>
+                                <p className="text-black font-semibold mt-4">
+                                  {category.toUpperCase()}
+                                </p>
+                                {courseList.map((course) => (
+                                  <Link
+                                    key={course.id}
+                                    href={`/category/${category}/${course.title
+                                      .toLowerCase()
+                                      .replace(/\s+/g, "-")}`}
+                                    className="block pl-4 py-1 text-sm text-gray-600 hover:text-yellow-500"
+                                  >
+                                    {course.title}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                        </>
+                      ) : (
+                        // For other menu pages
+                        menuItem.children.map((child) => (
+                          <Link
+                            key={child.id}
+                            href={child.link}
+                            className="block py-2 text-sm text-gray-600 hover:text-yellow-500"
+                          >
+                            {child.name}
+                          </Link>
+                        ))
+                      )}
                     </div>
                   )}
                 </li>

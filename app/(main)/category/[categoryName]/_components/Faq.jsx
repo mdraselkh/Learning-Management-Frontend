@@ -40,18 +40,15 @@ const Faq = () => {
   return (
     <div className="pt-8 flex flex-col items-start justify-between gap-8">
       <div>
-        <h2 className="text-4xl text-black font-semibold mb-4 font-serif">
+        <h2 className="text-2xl md:text-4xl text-black font-semibold mb-4 font-serif">
           Frequently asked questions
         </h2>
         <p className="text-base text-gray-500">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique
-          architecto cupiditate perferendis laborum harum voluptas voluptatem
-          quaerat eius? Fugit illum sed ad consectetur. Alias, tenetur.
-          Consequuntur in officiis sequi quidem ratione corporis neque, adipisci
-          eaque beatae maiores exercitationem. Accusantium adipisci ut incidunt
-          minima, facilis mollitia vel libero consequuntur consectetur itaque
-          dolor repudiandae vitae rerum tempore? Fugiat corporis earum
-          voluptatem dolorem!
+          Have something on your mind? We’ve gathered the most common questions
+          learners ask — and answered them all right here. From course content
+          to access and certificates, find all the deets without needing to
+          reach out. Still stuck? Don’t worry — you can always contact us
+          directly. 🙌
         </p>
       </div>
       <div className="w-full mt-8 flex flex-col gap-5 justify-between">

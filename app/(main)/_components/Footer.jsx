@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="relative h-auto xl:h-[600px] bg-[url('/images/herobg.png')] bg-cover bg-center bg-no-repeat">
         {/* Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
-        <div className="absolute z-10 -top-28 left-0 right-0 px-4 xl:px-0 ">
+        <div className="absolute z-20 -top-28 left-0 right-0 px-4 xl:px-0 ">
           <div className="bg-yellow-500 container mx-auto max-w-7xl rounded p-6 lg:px-20 lg:py-14 flex flex-col lg:flex-row items-center gap-5 lg:gap-0 justify-center lg:justify-between">
             <h1 className="text-black max-w-sm text-3xl lg:text-4xl font-serif font-semibold text-center lg:text-left">
               Are you ready to start your journey{" "}

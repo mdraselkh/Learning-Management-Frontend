@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 
 const Query = () => {
@@ -28,18 +28,15 @@ const Query = () => {
   return (
     <div className=" pt-8 flex flex-col items-center justify-between gap-8">
       <div className="max-w-4xl text-center">
-        <h2 className="text-4xl text-black font-semibold mb-3 font-serif">
+        <h2 className="text-2xl md:text-4xl text-black font-semibold mb-3 font-serif">
           Have any questions about this course?
         </h2>
         <p className="text-base text-gray-500">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique
-          architecto cupiditate perferendis laborum harum voluptas voluptatem
-          quaerat eius? Fugit illum sed ad consectetur. Alias, tenetur.
-          Consequuntur in officiis sequi quidem ratione corporis neque, adipisci
-          eaque beatae maiores exercitationem. Accusantium adipisci ut incidunt
-          minima, facilis mollitia vel libero consequuntur consectetur itaque
-          dolor repudiandae vitae rerum tempore? Fugiat corporis earum
-          voluptatem dolorem!
+          We’re here to help you every step of the way! If something’s unclear,
+          you’re curious about the topics covered, or want to know if this
+          course is right for you — just ask. Whether it's before enrolling or
+          while learning, drop your question and our team or instructor will
+          respond ASAP. Let’s make learning smooth and stress-free. 💬✨
         </p>
       </div>
       <div className="w-full flex flex-col  justify-between gap-5">
@@ -91,8 +88,6 @@ const Query = () => {
               className="mt-5 p-4  w-full border border-gray-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
-
-        
 
           {/* Message */}
           <div>

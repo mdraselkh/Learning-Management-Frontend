@@ -50,7 +50,7 @@ const Courses = ({ isCoursePage }) => {
 
   const filteredCourses =
     activeTab === "All Courses"
-      ? courseData
+      ? courseData.slice(0,6)
       : courseData.filter((course) => course.categoryname === activeTab);
 
   const displayedCourses = isCoursePage ? currentData : filteredCourses;

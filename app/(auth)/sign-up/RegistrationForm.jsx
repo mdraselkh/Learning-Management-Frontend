@@ -103,10 +103,10 @@ const RegistrationForm = () => {
       <div className="absolute top-0 right-0 w-full h-full flex items-center justify-center z-10">
         <div className="container mx-auto max-w-7xl flex flex-col items-center justify-center gap-5 px-8 xl:px-0">
           <div className="flex flex-col items-center gap-4  w-full">
-            <h2 className="font-bold text-5xl font-serif text-white">
+            <h2 className="font-bold text-2xl md:text-5xl font-serif text-white">
               Sign up
             </h2>
-            <p className="text-white mb-2">
+            <p className="text-white md:text-base text-sm mb-2">
               {" "}
               More than 50k students join with us!
             </p>

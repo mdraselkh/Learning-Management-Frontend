@@ -68,13 +68,13 @@ const CourseCard = ({
           </div>
 
           {/* Content */}
-          <div className="flex flex-col group-hover:mt-4 items-center justify-between px-3 h-48 bottom-0  group-hover:h-72 transition-all duration-700 rounded-md ">
+          <div className="flex flex-col group-hover:mt-4 items-center justify-between px-1 md:px-3 h-48 bottom-0  group-hover:h-72 transition-all duration-700 rounded-md ">
             {/* Course Details */}
             <div className="flex flex-col items-start transition-all duration-300">
               <h2 className="uppercase text-gray-300 text-sm font-medium mb-4">
                 {categoryName}
               </h2>
-              <h1 className="text-3xl font-serif  font-bold line-clamp-3 text-gray-50 mb-4">
+              <h1 className="text-2xl md:text-3xl font-serif  font-bold line-clamp-2 md:line-clamp-3 text-gray-50 mb-4">
                 {title}
               </h1>
               <div className="flex items-center gap-2 mb-4">
@@ -136,7 +136,7 @@ const CourseCard = ({
                       ?.toLowerCase()
                       .replace(/[^a-z0-9]+/g, "-")
                       .replace(/^-+|-+$/g, "")}`}
-                    className="rounded-md bg-yellow-500 px-6 sm:px-4 lg:px-6 py-4 text-gray-800 hover:scale-95 transition-all duration-300 ease-in-out"
+                    className="rounded-md bg-yellow-500 px-5 sm:px-4 lg:px-6 py-4 text-gray-800 hover:scale-95 transition-all duration-300 ease-in-out"
                   >
                     Course Details
                   </Link>

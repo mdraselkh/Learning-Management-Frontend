@@ -81,7 +81,7 @@ export function DataTable({ columns, data, isDashboard }) {
     <div>
       <div className="flex items-center justify-between py-5">
         {isDashboard ? (
-          <div className="flex items-center justify-between w-full text-2xl">
+          <div className="flex items-center justify-between w-full text-xl md:text-2xl">
             <h3 className="font-semibold">Payment History</h3>
             <Link
               href="/payment-history"
@@ -91,16 +91,16 @@ export function DataTable({ columns, data, isDashboard }) {
             </Link>
           </div>
         ) : (
-          <h3 className="text-3xl font-semibold">Payment History</h3>
+          <h3 className="text-xl md:text-3xl font-semibold">Payment History</h3>
         )}
         {!isDashboard && (
-          <div className="flex gap-5 items-center justify-end py-4 w-1/2">
+          <div className="flex  gap-2 md:gap-5 items-center justify-end py-4 w-full md:w-1/2">
             <Input
               type="text"
               placeholder="Search ..."
               value={globalFilter}
               onChange={(e) => setGlobalFilter(e.target.value)}
-              className="px-4 py-5 rounded-md  w-1/3 focus:ring-1 focus:ring-yellow-500 focus:outline-none"
+              className="px-4 py-5 rounded-md  w-2/3 md:w-1/3 focus:ring-1 focus:ring-yellow-500 focus:outline-none"
             />
             <Select
               onValueChange={(value) => {
@@ -108,7 +108,7 @@ export function DataTable({ columns, data, isDashboard }) {
                 setStatusFilter(value);
               }}
             >
-              <SelectTrigger className="w-[100px] focus:ring-1 focus:ring-yellow-500 focus:outline-none">
+              <SelectTrigger className="w-[85px] md:w-[100px] focus:ring-1 focus:ring-yellow-500 focus:outline-none">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>

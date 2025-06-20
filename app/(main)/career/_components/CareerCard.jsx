@@ -14,11 +14,11 @@ const CareerCard = ({
       <h2 className="text-2xl font-semibold text-left mb-4">{position}</h2>
       <p className="text-sm text-left mb-2 uppercase text-gray-400 ">{vacancy}</p>
       <p className="text-sm text-left uppercase text-gray-400">{location}</p>
-      <div className="flex flex-col md:flex-row items-start justify-center py-6 gap-6">
-        <span className="px-8 py-3 bg-yellow-500 text-lg rounded text-black font-medium">
+      <div className="flex flex-row items-start justify-center py-6 gap-4 md:gap-6">
+        <span className=" px-5 md:px-8 py-3 bg-yellow-500 text-lg rounded text-black font-medium">
           {salary}
         </span>
-        <button className="px-8 py-3 bg-teal-950 rounded cursor-pointer text-lg text-white font-semibold">
+        <button className="px-5 md:px-8 py-3 bg-teal-950 rounded cursor-pointer text-lg text-white font-semibold">
           Apply Now
         </button>
       </div>

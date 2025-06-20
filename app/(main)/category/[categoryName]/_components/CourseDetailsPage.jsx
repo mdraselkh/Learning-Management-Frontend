@@ -120,9 +120,9 @@ const CourseDetailsPage = ({ slug }) => {
         hasFullAccess={hasFullAccess}
       />
       <div className="py-10 md:py-32 mt-96 md:mt-0 container px-4 xl:px-0 mx-auto max-w-7xl">
-        <div className="flex flex-col w-full md:w-auto md:flex-row items-center justify-center py-8">
+        <div className="flex w-auto text-[14px] md:text-base flex-row items-center justify-center py-8">
           <button
-            className={`px-10 py-4 w-full md:w-auto border-b rounded-l  ${
+            className={`px-3 py-2 md:px-10 md:py-4 w-auto border-b rounded-l  ${
               activeTab === "overview"
                 ? "bg-teal-950 text-white rounded"
                 : "bg-teal-50 text-gray-500"
@@ -132,7 +132,7 @@ const CourseDetailsPage = ({ slug }) => {
             Overview
           </button>
           <button
-            className={`px-10 py-4 w-full border-b md:w-auto ${
+            className={`px-3 py-2 md:px-10 md:py-4 w-auto ${
               activeTab === "curriculum"
                 ? "bg-teal-950 text-white rounded"
                 : "bg-teal-50 text-gray-500"
@@ -142,7 +142,7 @@ const CourseDetailsPage = ({ slug }) => {
             Curriculum
           </button>
           <button
-            className={`px-10 py-4 border-b w-full md:w-auto ${
+            className={`px-3 py-2 md:px-10 md:py-4 w-auto ${
               activeTab === "instructor"
                 ? "bg-teal-950 text-white rounded"
                 : "bg-teal-50 text-gray-500"
@@ -152,7 +152,7 @@ const CourseDetailsPage = ({ slug }) => {
             Instructor
           </button>
           <button
-            className={`px-10 py-4 border-b w-full md:w-auto ${
+            className={`px-3 py-2 md:px-10 md:py-4 w-auto ${
               activeTab === "faq"
                 ? "bg-teal-950 text-white rounded"
                 : "bg-teal-50 text-gray-500"
@@ -162,7 +162,7 @@ const CourseDetailsPage = ({ slug }) => {
             FAQ
           </button>
           <button
-            className={`px-10 py-4 border-b w-full md:w-auto rounded-r  ${
+            className={`px-3 py-2 md:px-10 md:py-4 w-auto rounded-r  ${
               activeTab === "query"
                 ? "bg-teal-950 text-white rounded"
                 : "bg-teal-50 text-gray-500"
@@ -202,11 +202,11 @@ const CourseDetailsPage = ({ slug }) => {
           <p className="text-sm md:text-base font-sans uppercase text-gray-700">
             Online Learning
           </p>
-          <h2 className="text-4xl font-bold text-gray-900">Related Courses</h2>
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-900">Related Courses</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {relatedCourses.map((course, index) => (
-            <div key={index} className="px-4 xl:px-0">
+            <div key={index} className="px-2 xl:px-0">
               <CourseCard
                 id={course.id}
                 img={course.img}

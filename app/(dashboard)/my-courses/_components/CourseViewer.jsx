@@ -53,9 +53,9 @@ export default function CourseViewer({ courseContent, onBack }) {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] bg-white rounded shadow-lg ">
+    <div className="flex flex-col md:flex-row min-h-[calc(100vh-64px)] bg-white rounded shadow-lg ">
       {/* === Sidebar === */}
-      <aside className="w-1/3 border-r p-4 bg-gray-50">
+      <aside className="w-full md:w-1/3 border-r p-4 bg-gray-50">
         <h2 className="text-xl font-bold mb-4 text-gray-800">Course Content</h2>
         <ul className="space-y-4">
           {courseContent.map((section, index) => (
@@ -83,17 +83,17 @@ export default function CourseViewer({ courseContent, onBack }) {
       </aside>
 
       {/* === Main Viewer === */}
-      <main className="w-2/3 p-6 flex flex-col gap-4">
+      <main className="w-full p-1 md:w-2/3 md:p-6 flex flex-col gap-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold text-gray-800">
+          <h2 className="mt-4 md:mt-0 text-lg md:text-2xl font-semibold text-gray-800">
             🎬 Now Playing:{" "}
-            <span className="text-blue-600">{selectedSection?.title}</span>
+            <span className="text-blue-600 text-sm md:text-2xl">{selectedSection?.title}</span>
           </h2>
           <button
-            className="text-blue-500 hover:underline font-medium flex items-center gap-2"
+            className="text-xs md:text-base text-blue-500 hover:underline font-medium flex items-center gap-2"
             onClick={onBack}
           >
-            <TbArrowRightFromArc/> Back to My Courses
+            <TbArrowRightFromArc size={20}/> Back to My Courses
           </button>
         </div>
 

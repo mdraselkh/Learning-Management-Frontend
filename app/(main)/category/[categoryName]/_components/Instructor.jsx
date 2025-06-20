@@ -11,7 +11,7 @@ const Instructor = ({instructor}) => {
   return (
     <div className="pt-8 flex flex-col items-center md:items-start justify-between gap-8">
       <div>
-        <h2 className="text-4xl text-black font-semibold mb-4 font-serif">
+        <h2 className="text-2xl md:text-4xl text-black font-semibold mb-4 font-serif">
           Course instructor
         </h2>
         <p className="text-base text-gray-500">

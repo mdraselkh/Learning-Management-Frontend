@@ -39,10 +39,10 @@ export default function StudentDashboard() {
   // }, [user]);
 
   return (
-    <div className="container p-5">
+    <div className="container md:p-5">
       {/* Welcome Banner */}
       <div className="flex items-center gap-4 mb-8 p-5 bg-white rounded">
-        <div className="w-16 h-16 relative">
+        <div className="w-10 h-10 md:w-16 md:h-16 relative">
           <Image
             src={user?.image_url || "/images/people.png"}
             alt={user?.name || "Student"}
@@ -51,13 +51,13 @@ export default function StudentDashboard() {
           />
         </div>
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+          <h1 className="text-xl md:text-3xl font-bold text-gray-800">
             Welcome,{" "}
             <span className="text-blue-600">
-              {user?.name || "Instructor"} 👋
+              {user?.name || "Student"} 👋
             </span>
           </h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-xs md:text-base text-gray-500 mt-1">
             Let’s continue your learning journey today!
           </p>
         </div>

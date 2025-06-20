@@ -17,14 +17,14 @@ const FreeCurriculum = ({ lessonData }) => {
 
 
   return (
-    <div className="pt-8 flex flex-col-reverse md:flex-row items-start justify-between md:gap-20 relative">
-      <div className="flex flex-wrap mt-10 md:mt-0 md:flex-col items-start gap-2 md:w-1/4 sticky">
+    <div className="pt-8 flex flex-col md:flex-row items-start justify-between gap-10 md:gap-20 relative">
+      <div className="flex flex-wrap mt-0 md:flex-col items-start gap-2 md:w-1/4 sticky">
         {lessonData.map((lesson, index) => {
           const lessonKey = `lesson${index + 1}`;
           return (
             <button
               key={lessonKey}
-              className={`md:px-20 px-6 py-2 md:py-4 rounded-l ${
+              className={`md:px-20 px-2 text-xs md:text-base py-2 md:py-4 rounded-l ${
                 activeTab === lessonKey
                   ? "bg-teal-950 text-white rounded"
                   : "bg-teal-50 text-gray-500"

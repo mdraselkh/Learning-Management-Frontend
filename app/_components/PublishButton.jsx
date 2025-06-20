@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { showErrorToast, showSuccessToast } from "../utils/sweetAlert";
+import axiosInstance from "../utils/axiosInstance";
 
 const PublishButton = ({
   disabled,
@@ -27,7 +28,7 @@ const PublishButton = ({
   console.log("Current isPublished:", isPublished);
 
   const onClick = async () => {
-    const baseUrl = `http://localhost:5000/api`;
+    const baseUrl = `/api`;
 
     // Dynamically set the URL based on the `page`
     const url =
@@ -41,7 +42,7 @@ const PublishButton = ({
       setIsLoading(true);
       const newIsPublished = !isPublished;
 
-      await axios.patch(`${url}/${newIsPublished ? "publish" : "unpublish"}`);
+      await axiosInstance.patch(`${url}/${newIsPublished ? "publish" : "unpublish"}`);
 
       // Update the state with the new value
       setIsPublished(newIsPublished);

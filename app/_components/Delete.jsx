@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { showErrorToast, showSuccessToast } from "../utils/sweetAlert";
 import { Button } from "@/components/ui/button";
+import axiosInstance from "../utils/axiosInstance";
 
 const Delete = ({ item, courseId, sectionId }) => {
   const router = useRouter();
@@ -28,9 +29,9 @@ const Delete = ({ item, courseId, sectionId }) => {
       setIsDeleting(true);
       const url =
         item === "Section"
-          ? `http://localhost:5000/api/section/${courseId}/deleteSection/${sectionId}`
-          : `http://localhost:5000/api/courses/deleteCourses/${courseId}`;
-      await axios.delete(url);
+          ? `/api/section/${courseId}/deleteSection/${sectionId}`
+          : `/api/courses/deleteCourses/${courseId}`;
+      await axiosInstance.delete(url);
 
       setIsDeleting(false);
 

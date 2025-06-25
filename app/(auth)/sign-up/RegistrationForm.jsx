@@ -9,6 +9,7 @@ import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import axiosInstance from "@/app/utils/axiosInstance";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ const RegistrationForm = () => {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const [message, setMessage] = useState("");
+  const [showCurrent, setShowCurrent] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -171,13 +173,14 @@ const RegistrationForm = () => {
               </div>
 
               {/* Password */}
-              <div>
+              <div className="relative">
                 <label htmlFor="Password" className="text-white font-semibold">
                   Password
                 </label>
 
                 <input
-                  type="password"
+                  // type="password"
+                  type={showCurrent ? "text" : "password"}
                   id="password"
                   name="password"
                   value={formData.password}
@@ -186,6 +189,12 @@ const RegistrationForm = () => {
                   // required
                   className="p-3 sm:p-4 my-2 bg-teal-900 outline-none text-white  w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 />
+                <div
+                  className="absolute right-2 top-[54px] cursor-pointer text-gray-300"
+                  onClick={() => setShowCurrent((prev) => !prev)}
+                >
+                  {showCurrent ? <FiEye /> : <FiEyeOff />}
+                </div>
                 {errors.password && (
                   <p className="text-red-600 text-sm mt-1">{errors.password}</p>
                 )}

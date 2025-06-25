@@ -440,7 +440,7 @@ const Navbar = () => {
                 <Link href="/login">
                   <span>Login</span>
                 </Link>
-                <span className="px-3">|</span>
+                <span className="px-1 sm:px-3">|</span>
                 <Link href="/sign-up">
                   <span>Register</span>
                 </Link>

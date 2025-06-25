@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { z } from "zod";
 
@@ -28,6 +29,7 @@ const LoginForm = () => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showCurrent, setShowCurrent] = useState(false);
   const router = useRouter();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -105,6 +107,14 @@ const LoginForm = () => {
     setFormData({ email: "", password: "" });
   };
 
+  //   const handleGoogleLogin = () => {
+  //   window.location.href = "http://localhost:5000/api/auth/google";
+  // };
+
+  // const handleFacebookLogin = () => {
+  //   window.location.href = "http://localhost:5000/api/auth/facebook";
+  // };
+
   return (
     <div className="relative w-full h-screen">
       {/* Background Image */}
@@ -162,13 +172,14 @@ const LoginForm = () => {
               </div>
 
               {/* Password */}
-              <div>
+              <div className="relative">
                 <label htmlFor="Password" className="text-white font-semibold">
                   Password
                 </label>
 
                 <input
-                  type="password"
+                  // type="password"
+                  type={showCurrent ? "text" : "password"}
                   id="password"
                   name="password"
                   value={formData.password}
@@ -177,6 +188,18 @@ const LoginForm = () => {
                   // required
                   className="p-3 sm:p-4 my-2 bg-teal-900 outline-none text-white  w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 />
+                <div
+                  className="absolute right-2 top-[54px] cursor-pointer text-gray-300"
+                  onClick={() => setShowCurrent((prev) => !prev)}
+                >
+                  {showCurrent ? <FiEye /> : <FiEyeOff />}
+                </div>
+                <Link
+                  href="/forget-password"
+                  className="text-gray-400 underline hover:text-gray-200"
+                >
+                  Forget password?
+                </Link>
                 {errors.password && (
                   <p className="text-red-600 text-sm mt-1">{errors.password}</p>
                 )}
@@ -207,15 +230,15 @@ const LoginForm = () => {
                 </Link>
               </div>
             </form>
-            <div className="flex items-center justify-between w-3/4 md:w-[40%] gap-2 mt-2">
+            {/* <div className="flex items-center justify-between w-3/4 md:w-[40%] gap-2 mt-2">
               <div className="text-gray-400 border border-gray-600 w-full"></div>
               <p className="text-gray-200 text-lg px-2 font-extralight">or</p>
               <div className="text-gray-400 border border-gray-600 w-full"></div>
 
               <hr />
-            </div>
-            <div className="flex gap-6 sm:gap-10 justify-center w-3/4 md:w-[40%]">
-              <button className="flex items-center justify-center  px-8 py-3 sm:px-10 sm:py-4 bg-teal-900 rounded text-white font-semibold hover:scale-95 transition-all duration-300">
+            </div> */}
+            {/* <div className="flex gap-6 sm:gap-10 justify-center w-3/4 md:w-[40%]">
+              <button onClick={handleGoogleLogin} className="flex items-center justify-center  px-8 py-3 sm:px-10 sm:py-4 bg-teal-900 rounded text-white font-semibold hover:scale-95 transition-all duration-300">
                 <Image
                   src="/images/google.png"
                   alt=""
@@ -225,7 +248,7 @@ const LoginForm = () => {
                 />
                 Google
               </button>
-              <button className="flex items-center justify-center px-8 py-3 sm:px-10 sm:py-4  bg-teal-900 rounded text-white  font-semibold hover:scale-95 transition-all duration-300">
+              <button onClick={handleFacebookLogin} className="flex items-center justify-center px-8 py-3 sm:px-10 sm:py-4  bg-teal-900 rounded text-white  font-semibold hover:scale-95 transition-all duration-300">
                 <Image
                   src="/images/communication.png"
                   alt=""
@@ -235,7 +258,7 @@ const LoginForm = () => {
                 />
                 Facebook
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

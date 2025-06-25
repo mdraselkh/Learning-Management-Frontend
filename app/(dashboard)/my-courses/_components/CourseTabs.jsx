@@ -32,14 +32,14 @@ export default function CourseTabs({ courses, onStartLearning }) {
   return (
     <div className="w-full">
       {/* Tab Headers */}
-      <div className="flex gap-2 md:gap-4 mb-6 border px-2 bg-white">
+      <div className="flex gap-2 md:gap-4 mb-6 border sm:px-2 bg-white">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`py-3 px-3 text-lg font-semibold  ${
+            className={`py-3 px-3 text-sm md:text-lg font-semibold  ${
               activeTab === tab
-                ? "border-teal-700 border-b-4 text-teal-700"
+                ? "border-teal-700 border-2 sm:border-0 md:border-b-4 text-teal-700"
                 : "border-none text-gray-500"
             } `}
           >

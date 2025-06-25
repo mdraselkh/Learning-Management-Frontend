@@ -1,10 +1,10 @@
-'use client';
+"use client";
 import localFont from "next/font/local";
 import "./globals.css";
 import "@fontsource/pacifico";
 import { Provider } from "react-redux";
 import store from "./store/store";
-
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,7 +34,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
       >
-        <Provider store={store}>{children}</Provider>
+        <Provider store={store}>
+          <TooltipProvider>{children}</TooltipProvider>{" "}
+        </Provider>
       </body>
     </html>
   );

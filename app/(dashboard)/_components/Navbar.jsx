@@ -101,7 +101,7 @@ const Navbar = ({ toggleMenuShow, menuShow, user, handleLogout }) => {
                 Profile
               </Link>
               <Link
-                href="/setting"
+                href="/user-setting"
                 className="w-full hover:text-yellow-500 hover:font-extralight hover:ml-2 transition-all duration-300 ease-in-out"
               >
                 Settings

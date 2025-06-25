@@ -1,5 +1,5 @@
 "use client";
-import { loadUser, updateUser } from "@/app/store/authSlice";
+import { loadUser, setUser, updateUser } from "@/app/store/authSlice";
 import axiosInstance from "@/app/utils/axiosInstance";
 import { showErrorToast, showSuccessToast } from "@/app/utils/sweetAlert";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ const EditUserForm = ({ user }) => {
   console.log(user);
   const [formData, setFormData] = useState({
     name: user.name || "",
-    password: user.password || "",
+    // password: user.password || "",
     phone: user.phone || "",
     email: user.email || "",
     city: user.city || "",
@@ -56,7 +56,7 @@ const EditUserForm = ({ user }) => {
     const form = new FormData();
     form.append("name", formData.name);
     form.append("phone", formData.phone);
-    form.append("password", formData.password);
+    // form.append("password", formData.password);
     form.append("email", formData.email);
     form.append("city", formData.city);
     form.append("address", formData.address);
@@ -68,7 +68,7 @@ const EditUserForm = ({ user }) => {
 
     try {
       const res = await axiosInstance.patch(
-        `/api/users/updateUser/${user.id}`,
+        `/api/users/updateUser/${user.id || user.userId}`,
         form,
         {
           headers: {
@@ -79,12 +79,13 @@ const EditUserForm = ({ user }) => {
 
       if (res.status === 200 || res.status === 201) {
         showSuccessToast(`${user.role} updated successfully!`);
+        console.log(res.data.safeUser);
 
-        dispatch(updateUser(res.data.user));
+        dispatch(setUser(res.data.safeUser));
 
         setFormData({
           name: "",
-          password: "",
+          // password: "",
           phone: "",
           email: "",
           city: "",
@@ -162,14 +163,14 @@ const EditUserForm = ({ user }) => {
             required
           />
         </div>
-        <Input
+        {/* <Input
           className="h-12 !py-3"
           name="password"
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
           required
-        />
+        /> */}
 
         <Textarea
           name="description"

@@ -1,6 +1,5 @@
 "use client";
 
-import { loadUser } from "@/app/store/authSlice";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,12 +33,7 @@ const ProfilePage = () => {
   // Get user data from Redux store
   const user = useSelector((state) => state.auth.user);
 
-  // Load user data on component mount
-  useEffect(() => {
-    if (!user) {
-      dispatch(loadUser());
-    }
-  }, [dispatch, user]);
+
 
   console.log(user);
 

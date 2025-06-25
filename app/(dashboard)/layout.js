@@ -3,13 +3,19 @@ import { useEffect, useState } from "react";
 import Navbar from "./_components/Navbar";
 import SideBar from "./_components/SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUser, logout } from "../store/authSlice";
+import { logout } from "../store/authSlice";
 import { usePathname, useRouter } from "next/navigation";
+import useAuthProfile from "../hooks/useAuthProfile";
+import Loading from "../loading";
 
 export default function DashboardLayout({ children }) {
+  const { loading } = useAuthProfile();
+
   const [menuShow, setMenuShow] = useState(false);
   const [isAboveXl, setIsAboveXl] = useState(false);
+
   const dispatch = useDispatch();
+
   const user = useSelector((state) => state.auth.user);
   console.log(user);
   const router = useRouter();
@@ -22,12 +28,6 @@ export default function DashboardLayout({ children }) {
   useEffect(() => {
     setMenuShow(false);
   }, [pathname]);
-
-  useEffect(() => {
-    if (!user) {
-      dispatch(loadUser());
-    }
-  }, [dispatch, user]);
 
   console.log(isAboveXl);
 
@@ -56,6 +56,10 @@ export default function DashboardLayout({ children }) {
       setMenuShow((prev) => !prev);
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen flex bg-gray-100">

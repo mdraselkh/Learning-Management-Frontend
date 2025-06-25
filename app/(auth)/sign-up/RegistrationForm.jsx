@@ -20,7 +20,8 @@ const RegistrationForm = () => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const router=useRouter();
+  const [status, setStatus] = useState(null);
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,6 +34,8 @@ const RegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setStatus(null); // reset
+    setMessage(""); // reset
 
     try {
       const validateData = userSchemaRegister.parse(formData);
@@ -43,8 +46,11 @@ const RegistrationForm = () => {
       );
 
       console.log("Registration successful:", response.data);
-      showSuccessToast("Registration successful");
-      router.push('/login');
+      showSuccessToast(response.data.message);
+
+      setStatus("success");
+      setMessage(response.data.message || "Registration successful!");
+
       resetHandler();
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -55,19 +61,21 @@ const RegistrationForm = () => {
         setErrors(formattedErrors);
       } else if (error.response) {
         if (error.response.status === 404) {
-          console.error("Endpoint not found", error.response.data);
-          showErrorToast("API endpoint not found. Please check the server.");
+          setStatus("error");
+          setMessage("API endpoint not found. Please check the server.");
         } else if (
           error.response.data.message === "Email is already registered"
         ) {
           setErrors({ email: "Email is already registered" });
+          setStatus("error");
+          setMessage("Email is already registered.");
         } else {
-          console.error("Error during registration:", error);
-          showErrorToast("Something went wrong");
+          setStatus("error");
+          setMessage("Something went wrong. Please try again.");
         }
       } else {
-        console.error("Unexpected error:", error);
-        showErrorToast("Something went wrong");
+        setStatus("error");
+        setMessage("Something went wrong. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -115,6 +123,15 @@ const RegistrationForm = () => {
               className="space-y-5 sm:space-y-8 bg-teal-950 rounded p-8 sm:p-10 w-auto xl:w-[38%]"
             >
               {/* Email */}
+              {status && message && (
+                <p
+                  className={`font-semibold text-center mb-4 ${
+                    status === "success" ? "text-green-600" : "text-red-500"
+                  }`}
+                >
+                  {message}
+                </p>
+              )}
               <div>
                 <label htmlFor="Email" className="text-white font-semibold">
                   Email Address

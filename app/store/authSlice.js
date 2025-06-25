@@ -6,7 +6,9 @@ import Cookies from "js-cookie";
 const tokenFromCookie = Cookies.get("token");
 
 const initialState = {
-  user: tokenFromCookie ? jwtDecode(tokenFromCookie) : null,
+  token: tokenFromCookie || null,
+  // user: tokenFromCookie ? jwtDecode(tokenFromCookie) : null,
+  user: null,
   isAuthenticated: !!tokenFromCookie,
 };
 
@@ -14,20 +16,31 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // login: (state, action) => {
+    //   const token = action.payload;
+
+    //   // Save token in cookies with 1 day (24h) expiry
+    //   // Cookies.set("token", token, { expires: 1 });
+    //   Cookies.set("token", token, {
+    //     expires: 1,
+    //     secure: process.env.NODE_ENV === "production",
+    //     sameSite: "strict",
+    //   });
+
+    //   // Decode token and update state
+    //   const decodedToken = jwtDecode(token);
+    //   state.user = decodedToken;
+    //   state.isAuthenticated = true;
+    // },
+
     login: (state, action) => {
       const token = action.payload;
-
-      // Save token in cookies with 1 day (24h) expiry
-      // Cookies.set("token", token, { expires: 1 });
       Cookies.set("token", token, {
         expires: 1,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
       });
-
-      // Decode token and update state
-      const decodedToken = jwtDecode(token);
-      state.user = decodedToken;
+      state.token = token;
       state.isAuthenticated = true;
     },
 
@@ -36,6 +49,7 @@ const authSlice = createSlice({
       Cookies.remove("token");
 
       // Clear state
+      state.token = null;
       state.user = null;
       state.isAuthenticated = false;
     },
@@ -54,8 +68,12 @@ const authSlice = createSlice({
       const updatedUser = action.payload;
       state.user = { ...state.user, ...updatedUser };
     },
+
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { login, logout, loadUser, updateUser } = authSlice.actions;
+export const { login, logout, updateUser, setUser } = authSlice.actions;
 export default authSlice.reducer;

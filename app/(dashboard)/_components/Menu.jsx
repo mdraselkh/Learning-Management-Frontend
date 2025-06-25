@@ -98,7 +98,7 @@ const Menu = () => {
     {
       label: "Settings",
       icon: <IoSettingsSharp />,
-      href: "/settings",
+      href: "/user-setting",
     },
   ];
 
@@ -114,10 +114,14 @@ const Menu = () => {
       href: "#",
       children: [
         { label: "Analytics", href: "/analytics" },
-        // { label: "Top Rated Courses", href: "/top-rated-courses" },
         { label: "Course List", href: "/course-list" },
         { label: "Create Course", href: "/create-course" },
       ],
+    },
+    {
+      label: "Students",
+      icon: <FaUserFriends />,
+      href: "/enrollment-history",
     },
     {
       label: "Blog",
@@ -138,8 +142,9 @@ const Menu = () => {
       icon: <BsQuestionSquare />,
       href: "/qa",
     },
+
     { label: "My Profile", icon: <RiAdminLine />, href: "/profile" },
-    { label: "Settings", icon: <IoSettingsSharp />, href: "/settings" },
+    { label: "Settings", icon: <IoSettingsSharp />, href: "/user-setting" },
   ];
 
   const studentMenu = [
@@ -165,7 +170,7 @@ const Menu = () => {
       href: "/payment-history",
     },
     { label: "My Profile", icon: <RiAdminLine />, href: "/profile" },
-    { label: "Settings", icon: <IoSettingsSharp />, href: "/settings" },
+    { label: "Settings", icon: <IoSettingsSharp />, href: "/user-setting" },
   ];
 
   function getMenuByRole(role) {

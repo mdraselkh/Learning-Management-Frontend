@@ -30,9 +30,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 export function DataTable({ columns, data, categories }) {
   console.log(data);
+  const user = useSelector((state) => state.auth.user);
 
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -110,11 +112,14 @@ export function DataTable({ columns, data, categories }) {
               </SelectGroup>
             </SelectContent>
           </Select>
-          <Link href="/enroll-student">
-            <Button className="flex items-center gap-2 bg-teal-950 border border-gray-400 text-white hover:scale-95 hover:bg-teal-900">
-              <FaPlus /> Add
-            </Button>
-          </Link>
+
+          {user?.role === "admin" && (
+            <Link href="/enroll-student">
+              <Button className="flex items-center gap-2 bg-teal-950 border border-gray-400 text-white hover:scale-95 hover:bg-teal-900">
+                <FaPlus /> Add
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
       <div className="rounded-md border bg-white">

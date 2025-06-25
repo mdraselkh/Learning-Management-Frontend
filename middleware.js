@@ -39,11 +39,12 @@ export async function middleware(request) {
       "/create-blog",
       "/profile",
       "/transactions",
-      "/settings",
+      "/user-setting",
     ],
     instructor: [
       "/instructor-dashboard",
       "/top-rated-courses",
+      "/enrollment-history",
       "/blog-list",
       "/create-blog",
       "/course-list",
@@ -51,7 +52,7 @@ export async function middleware(request) {
       "/create-user",
       "/courses",
       "/profile",
-      "/settings",
+      "/user-setting",
     ],
 
     student: [
@@ -60,7 +61,7 @@ export async function middleware(request) {
       "/my-courses",
       "/payment-history",
       "/profile",
-      "/settings",
+      "/user-setting",
     ],
   };
 
@@ -103,6 +104,6 @@ export const config = {
     "/profile",
     "/courses/:pathname*",
     "/create-user/:pathname*",
-    "/settings",
+    "/user-setting",
   ],
 };

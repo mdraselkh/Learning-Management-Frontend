@@ -6,8 +6,11 @@ import HighestRatedCourses from "../_components/HighestRatedCourse";
 import RevenueChart from "../_components/RevenueChart";
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import useAuthProfile from "@/app/hooks/useAuthProfile";
 
 const page = () => {
+  useAuthProfile();
+
   const user = useSelector((state) => state.auth.user);
   return (
     <div>

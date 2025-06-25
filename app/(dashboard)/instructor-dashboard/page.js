@@ -4,8 +4,11 @@ import { useSelector } from "react-redux";
 import InstructorStats from "./_components/InstructorStats";
 import Image from "next/image";
 import CourseList from "../course-list/_components/CourseList";
+import useAuthProfile from "@/app/hooks/useAuthProfile";
 
 const Page = () => {
+    useAuthProfile();
+  
   const user = useSelector((state) => state.auth.user);
 
   return (

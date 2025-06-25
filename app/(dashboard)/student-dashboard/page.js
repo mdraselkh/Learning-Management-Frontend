@@ -8,8 +8,10 @@ import axios from "axios";
 import Image from "next/image";
 import PaymentHistory from "../payment-history/_components/PaymentHistory";
 import MyCourses from "../my-courses/page";
+import useAuthProfile from "@/app/hooks/useAuthProfile";
 
 export default function StudentDashboard() {
+  useAuthProfile();
   const user = useSelector((state) => state.auth.user);
   const router = useRouter();
   const [dashboardData, setDashboardData] = useState({

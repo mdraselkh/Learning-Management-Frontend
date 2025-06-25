@@ -4,15 +4,17 @@ import Footer from "./_components/Footer";
 import Navbar from "./_components/Navbar";
 import { useEffect } from "react";
 import { loadUser } from "../store/authSlice";
+import useAuthProfile from "../hooks/useAuthProfile";
+import Loading from "../loading";
 // import dynamic from 'next/dynamic';
 // const Navbar = dynamic(() => import('./_components/Navbar'), { ssr: false });
 
 export default function HomeLayout({ children }) {
-  const dispatch = useDispatch();
+  const { loading } = useAuthProfile();
 
-  useEffect(() => {
-    dispatch(loadUser());
-  }, [dispatch]);
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">

@@ -79,13 +79,22 @@ const LoginForm = () => {
       } else if (error.response) {
         if (error.response.status === 404) {
           console.error("Endpoint not found", error.response.data);
-          showInfoToast("API endpoint not found. Please check the server.");
+          showInfoToast(
+            error.response.data.message ||
+              "API endpoint not found. Please check the server."
+          );
         } else {
-          showErrorToast("Invalid email and password. Please try again.");
+          showErrorToast(
+            error.response.data.message ||
+              "Invalid email and password. Please try again."
+          );
         }
       } else {
         console.error("Unexpected error:", error);
-        showErrorToast("Something went wrong. Please try again.");
+        showErrorToast(
+          error.response.data.message ||
+            "Something went wrong. Please try again."
+        );
       }
     } finally {
       setLoading(false);
@@ -121,7 +130,9 @@ const LoginForm = () => {
       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-10">
         <div className="container mx-auto max-w-7xl flex flex-col items-center justify-center gap-5 px-8 xl:px-0">
           <div className="flex flex-col items-center gap-4  w-full">
-            <h2 className="font-bold text-2xl md:text-5xl font-serif text-white">Log in</h2>
+            <h2 className="font-bold text-2xl md:text-5xl font-serif text-white">
+              Log in
+            </h2>
             <p className="text-white text-sm md:text-base mb-2 text-center">
               {" "}
               More than 50k students have joined Learncraft already

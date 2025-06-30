@@ -65,7 +65,7 @@ const Navbar = () => {
     dispatch(clearAllAccess());
     clearAccessStorage();
     // router.push("/login");
-     window.location.href = "/login";
+    window.location.href = "/login";
     // router.refresh();
   };
 
@@ -381,7 +381,7 @@ const Navbar = () => {
           </div>
 
           {/* Right Section */}
-          <div className="flex items-center gap-10 py-4">
+          <div className="flex items-center gap-5 md:gap-10 py-4">
             {/* Cart */}
             <button
               className="relative"
@@ -400,7 +400,7 @@ const Navbar = () => {
                 onMouseLeave={() => setHover(false)}
               >
                 {/* Avatar */}
-                <div className="relative lg:w-12 lg:h-12 lg:mb-3 rounded-full bg-white cursor-pointer overflow-hidden">
+                <div className="relative  w-8 h-8 lg:w-12 lg:h-12 lg:mb-3 rounded-full bg-white cursor-pointer overflow-hidden">
                   <Image
                     src={user?.image_url || "/images/people.png"}
                     alt="User Avatar"

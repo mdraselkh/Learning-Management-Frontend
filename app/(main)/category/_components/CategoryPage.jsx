@@ -5,11 +5,14 @@ import courseImg1 from "/public/images/course1.png";
 import CourseCard from "../../_components/CourseCard";
 import axios from "axios";
 import axiosInstance from "@/app/utils/axiosInstance";
+import Loading from "@/app/loading";
 
 const CategoryPage = ({ categoryName }) => {
   const [courseData, setCourseData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchCoursesData = async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.get(
         "/api/courses/getCoursesWithRatings"
@@ -18,6 +21,8 @@ const CategoryPage = ({ categoryName }) => {
       setCourseData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,6 +35,13 @@ const CategoryPage = ({ categoryName }) => {
       course.categoryname.toLocaleLowerCase() ===
       categoryName.toLocaleLowerCase()
   );
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-teal-950 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div>

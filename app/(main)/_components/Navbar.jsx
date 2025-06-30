@@ -30,7 +30,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    setIsMenuOpen(false); 
+    setIsMenuOpen(false);
   }, [pathname]);
 
   const fetchCourseData = async () => {
@@ -64,7 +64,8 @@ const Navbar = () => {
     dispatch(logout()); // Dispatch logout action
     dispatch(clearAllAccess());
     clearAccessStorage();
-    router.push("/login");
+    // router.push("/login");
+     window.location.href = "/login";
     // router.refresh();
   };
 
@@ -399,14 +400,12 @@ const Navbar = () => {
                 onMouseLeave={() => setHover(false)}
               >
                 {/* Avatar */}
-                <div className=" lg:w-12 lg:h-12 p-1 lg:mb-3 rounded-full bg-white flex items-center justify-center cursor-pointer">
-                  {/* You can use an image or icon here */}
+                <div className="relative lg:w-12 lg:h-12 lg:mb-3 rounded-full bg-white cursor-pointer overflow-hidden">
                   <Image
                     src={user?.image_url || "/images/people.png"}
                     alt="User Avatar"
-                    width={20}
-                    height={20}
-                    className=" lg:w-[32px] lg:h-[32px] object-cover"
+                    fill
+                    className="object-cover rounded-full"
                   />
                 </div>
 
@@ -457,7 +456,6 @@ const Navbar = () => {
           </div>
         </div>
 
-       
         {isMenuOpen && (
           <div className="lg:hidden bg-white text-black h-screen font-sans transition-all duration-500 ease-in-out overflow-y-auto">
             <ul className="flex flex-col p-4">

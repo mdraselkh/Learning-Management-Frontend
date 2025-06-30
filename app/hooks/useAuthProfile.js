@@ -23,11 +23,10 @@ const useAuthProfile = () => {
         console.log(res.data.user);
         dispatch(setUser(res.data.user));
       } catch (err) {
-        if (err.response?.data?.message === "Token expired") {
+        if (err.response?.status === 403 || err.response?.status === 401 || err.response?.data?.message === "Token expired") {
           dispatch(logout());
-          showErrorToast.error("Session expired. Please login again.");
+          showErrorToast("Session expired. Please login again.");
         }
-        dispatch(logout());
       } finally {
         setLoading(false); // ✅ Done loading
       }

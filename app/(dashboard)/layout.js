@@ -7,6 +7,8 @@ import { logout } from "../store/authSlice";
 import { usePathname, useRouter } from "next/navigation";
 import useAuthProfile from "../hooks/useAuthProfile";
 import Loading from "../loading";
+import { clearAllAccess } from "../store/courseAccessSlice";
+import { clearAccessStorage } from "../utils/accessStorage";
 
 export default function DashboardLayout({ children }) {
   const { loading } = useAuthProfile();
@@ -21,7 +23,10 @@ export default function DashboardLayout({ children }) {
   const router = useRouter();
   const handleLogout = () => {
     dispatch(logout());
-    router.push("/login");
+    dispatch(clearAllAccess());
+    clearAccessStorage();
+    // router.push("/login");
+    window.location.href = "/login";
   };
   const pathname = usePathname();
 

@@ -5,22 +5,26 @@ import BlogBanner from "./BlogBanner";
 import Pagination from "./Pagination";
 import axios from "axios";
 import axiosInstance from "@/app/utils/axiosInstance";
+import Loading from "@/app/loading";
 
 const BlogPage = () => {
   const [blogData, setBlogData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchBlogData = async () => {
+    setLoading(true);
     try {
-      const response = await axiosInstance.get(
-        "/api/blog/getAllBlogs"
-      );
+      const response = await axiosInstance.get("/api/blog/getAllBlogs");
       console.log(response);
-      setBlogData(response.data.data.filter((d) => {
-        return d.status === 'published';
-      }));
-      
+      setBlogData(
+        response.data.data.filter((d) => {
+          return d.status === "published";
+        })
+      );
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,6 +52,14 @@ const BlogPage = () => {
       setCurrentPage(page);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-teal-500 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div>

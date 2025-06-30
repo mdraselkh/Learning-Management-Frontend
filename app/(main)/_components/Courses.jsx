@@ -6,12 +6,15 @@ import Link from "next/link";
 import Pagination from "./Pagination";
 import axios from "axios";
 import axiosInstance from "@/app/utils/axiosInstance";
+import Loading from "@/app/loading";
 
 const Courses = ({ isCoursePage }) => {
   const [activeTab, setActiveTab] = useState("All Courses");
   const [courseData, setCourseData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchCoursesData = async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.get(
         "/api/courses/getCoursesWithRatings"
@@ -20,6 +23,8 @@ const Courses = ({ isCoursePage }) => {
       setCourseData(response.data.filter((c) => c.is_published));
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,12 +55,20 @@ const Courses = ({ isCoursePage }) => {
 
   const filteredCourses =
     activeTab === "All Courses"
-      ? courseData.slice(0,6)
+      ? courseData.slice(0, 6)
       : courseData.filter((course) => course.categoryname === activeTab);
 
   const displayedCourses = isCoursePage ? currentData : filteredCourses;
 
   console.log(displayedCourses);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-teal-500 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div

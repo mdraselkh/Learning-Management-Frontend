@@ -2,10 +2,10 @@
 
 import axios from "axios";
 import Cookies from "js-cookie";
+import { showErrorToast } from "./sweetAlert";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
-  // baseURL: 'http://localhost:5000',
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000",
   headers: {
     "Content-Type": "application/json",
   },
@@ -15,11 +15,9 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = Cookies.get("token");
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
   },
   (error) => Promise.reject(error)
@@ -29,21 +27,25 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response) {
-      const status = error.response.status;
+    const status = error.response?.status;
 
-      if (status === 401) {
-        console.warn("Not logged in or session expired.");
-        window.location.href = "/login";
-      }
+    if (status === 401 || status === 403) {
+      // 💣 Remove token and redirect to login
+      Cookies.remove("token");
 
-      if (status === 403) {
-        console.warn("Forbidden: You don't have access.");
-      }
+      const message =
+        error.response?.data?.message ||
+        "Session expired. Please log in again.";
+      showErrorToast(message);
 
-      if (status === 500) {
-        console.error("Server error. Please try again later.");
-      }
+      // Small delay so toast is visible before redirect
+      setTimeout(() => {
+        window.location.href = "/login?session-expired=true";
+      }, 1500);
+    }
+
+    if (status === 500) {
+      console.error("🔥 Server error:", error.response?.data);
     }
 
     return Promise.reject(error);

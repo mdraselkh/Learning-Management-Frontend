@@ -15,8 +15,10 @@ import axiosInstance from "@/app/utils/axiosInstance";
 
 const Categories = ({ removeTop, isCoursePage }) => {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchCategoriesData = async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.get(
         "/api/categories/getCategoriesWithCourseCount"
@@ -25,6 +27,8 @@ const Categories = ({ removeTop, isCoursePage }) => {
       setCategories(response.data.data);
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,6 +81,14 @@ const Categories = ({ removeTop, isCoursePage }) => {
     },
   ];
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-teal-500 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div className={`${isCoursePage ? "bg-teal-50" : "bg-slate-100"}`}>
       <div
@@ -94,10 +106,10 @@ const Categories = ({ removeTop, isCoursePage }) => {
             Discover Leading Categories
           </h1>
           <Link
-            href={isCoursePage ? '/course#allCourses':'/course'}
+            href={isCoursePage ? "/course#allCourses" : "/course"}
             className="md:px-12 rounded md:py-4 px-4 py-3  bg-teal-950 text-base text-gray-50 hover:scale-95 transition-all ease-in-out duration-200 cursor-pointer"
           >
-            {isCoursePage ? 'Show Courses' : 'Explore Courses'}
+            {isCoursePage ? "Show Courses" : "Explore Courses"}
           </Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 px-4 md:px-0 xl:w-1/2 gap-6 md:gap-8 place-items-center">

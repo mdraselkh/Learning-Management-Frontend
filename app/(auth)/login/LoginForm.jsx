@@ -12,8 +12,8 @@ import { jwtDecode } from "jwt-decode";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { z } from "zod";
@@ -31,6 +31,16 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [showCurrent, setShowCurrent] = useState(false);
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const expired = searchParams?.get("session-expired");
+    if (expired) {
+      showErrorToast("Your session expired. Please log in again.");
+    }
+  }, [searchParams]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -56,8 +66,8 @@ const LoginForm = () => {
       console.log(token);
 
       dispatch(login(token));
-      showSuccessToast("Login successful");
       resetHandler();
+      showSuccessToast("Login successful");
 
       const decodedUser = jwtDecode(token);
       console.log(decodedUser);

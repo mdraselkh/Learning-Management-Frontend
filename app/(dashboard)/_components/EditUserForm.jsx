@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { X } from "lucide-react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const EditUserForm = ({ user }) => {
@@ -26,6 +26,20 @@ const EditUserForm = ({ user }) => {
   const dispatch = useDispatch();
 
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+  setFormData({
+    name: user.name || "",
+    phone: user.phone || "",
+    email: user.email || "",
+    city: user.city || "",
+    address: user.address || "",
+    description: user.description || "",
+    image: null,
+    imagePreview: user.image_url || null,
+  });
+}, [user]);
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -83,16 +97,16 @@ const EditUserForm = ({ user }) => {
 
         dispatch(setUser(res.data.safeUser));
 
-        setFormData({
-          name: "",
-          // password: "",
-          phone: "",
-          email: "",
-          city: "",
-          address: "",
-          description: "",
-          image: null,
-        });
+        // setFormData({
+        //   name: "",
+        //   // password: "",
+        //   phone: "",
+        //   email: "",
+        //   city: "",
+        //   address: "",
+        //   description: "",
+        //   image: null,
+        // });
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
         }

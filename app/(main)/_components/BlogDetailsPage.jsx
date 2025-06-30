@@ -4,9 +4,11 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
 import axiosInstance from "@/app/utils/axiosInstance";
+import Loading from "@/app/loading";
 
 const BlogDetailsPage = ({ slug }) => {
   const [blogData, setBlogData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const formatDate = (dateString) => {
     if (!dateString) return "Unknown date"; // Fallback for missing dates
@@ -17,13 +19,14 @@ const BlogDetailsPage = ({ slug }) => {
   };
 
   const fetchBlogData = async () => {
+    setLoading(true);
     try {
-      const response = await axiosInstance.get(
-        "/api/blog/getAllBlogs"
-      );
+      const response = await axiosInstance.get("/api/blog/getAllBlogs");
       setBlogData(response.data.data.filter((d) => d.status === "published"));
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,6 +46,14 @@ const BlogDetailsPage = ({ slug }) => {
   const relatedBlogs = blogData.filter(
     (b) => b.category === blog?.category && b.title !== blog?.title
   );
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-teal-950 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div>

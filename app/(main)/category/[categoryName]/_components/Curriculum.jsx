@@ -140,6 +140,7 @@ const Curriculum = ({ lessonData, coursewithId }) => {
                     <video
                       src={lesson.video_url}
                       title="Lesson Video"
+                      controlsList="nodownload noremoteplayback"
                       controls
                       className="w-full h-full"
                     ></video>

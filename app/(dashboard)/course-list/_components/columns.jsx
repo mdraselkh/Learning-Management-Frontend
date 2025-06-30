@@ -51,7 +51,7 @@ export const columns = (categories, updateCourseList, role) => {
         return (
           <div className="flex items-start gap-2">
             <Image
-              src={thumbnail}
+              src={thumbnail || '/images/webinar.png'}
               alt={title}
               width={45}
               height={45}

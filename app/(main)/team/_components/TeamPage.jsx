@@ -5,16 +5,17 @@ import TeamBanner from "./TeamBanner";
 import TeamCard from "./TeamCard";
 import axios from "axios";
 import axiosInstance from "@/app/utils/axiosInstance";
+import Loading from "@/app/loading";
 
 const TeamPage = () => {
   const [teamMember, setTeamMember] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchTeamMembers = async () => {
+      setLoading(true);
       try {
-        const response = await axiosInstance.get(
-          "/api/users/getAllusers"
-        );
+        const response = await axiosInstance.get("/api/users/getAllusers");
         if (response.data) {
           const instructors = response.data.users.filter(
             (user) => user.role === "instructor"
@@ -23,11 +24,22 @@ const TeamPage = () => {
         }
       } catch (error) {
         console.error("Error fetching team members:", error);
+      }finally{
+        setLoading(false);
       }
     };
 
     fetchTeamMembers();
   }, []);
+
+    if (loading) {
+    return (
+      <div className="min-h-screen bg-teal-500 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
 
 
   return (

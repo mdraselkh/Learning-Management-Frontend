@@ -13,6 +13,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useCourseAccess } from "@/app/hooks/useCourseAccess";
 import axiosInstance from "@/app/utils/axiosInstance";
+import Loading from "@/app/loading";
 
 const CourseDetailsPage = ({ slug }) => {
   const [categoryName, setCategoryName] = useState(null);
@@ -20,8 +21,12 @@ const CourseDetailsPage = ({ slug }) => {
   const [lessonData, setLessonData] = useState([]);
   const [courseWithId, setCourseWithId] = useState(null); // Ensure initial state is null
   const [activeTab, setActiveTab] = useState("overview");
+  const [loading, setLoading] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   const fetchCourseData = async () => {
+    setLoading(true);
+
     try {
       const response = await axiosInstance.get(
         "/api/courses/getCoursesWithRatings"
@@ -30,6 +35,8 @@ const CourseDetailsPage = ({ slug }) => {
       setCourseData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,8 +52,21 @@ const CourseDetailsPage = ({ slug }) => {
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "") === slug
   );
+  console.log(course);
 
-  const relatedCourses = courseData.filter((b) => b.title !== course?.title);
+  const { accessData: hasFullAccess } = useCourseAccess(
+    user?.userId,
+    course?.id
+  );
+
+  const relatedCoursesList = courseData.filter(
+    (b) => b.title !== course?.title
+  );
+  const relatedCourses = relatedCoursesList.filter(
+    (c) => c.categoryname === course?.categoryname
+  );
+
+  console.log(relatedCourses);
 
   // Fetch category name from URL
   useEffect(() => {
@@ -74,6 +94,7 @@ const CourseDetailsPage = ({ slug }) => {
 
   const fetchAllCourseData = async () => {
     if (!course?.id) return; // Make sure course is defined
+    setLoading(true);
 
     try {
       const response = await axiosInstance.get(
@@ -83,6 +104,8 @@ const CourseDetailsPage = ({ slug }) => {
       setCourseWithId(response.data.data);
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -92,6 +115,8 @@ const CourseDetailsPage = ({ slug }) => {
   }, [course?.id]);
 
   const fetchAllLessonData = async () => {
+    setLoading(true);
+
     if (!course?.id) return; // Make sure course is defined
 
     try {
@@ -102,15 +127,18 @@ const CourseDetailsPage = ({ slug }) => {
       setLessonData(response.data.data.filter((l) => l.is_published));
     } catch (error) {
       console.error("Error fetching data:", error);
+    }finally{
+      setLoading(false);
     }
   };
 
-  // console.log(lessonData);
-  const { user } = useSelector((state) => state.auth);
-  const { accessData: hasFullAccess, loading } = useCourseAccess(
-    user?.userId,
-    course?.id
-  );
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-teal-950 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -202,7 +230,9 @@ const CourseDetailsPage = ({ slug }) => {
           <p className="text-sm md:text-base font-sans uppercase text-gray-700">
             Online Learning
           </p>
-          <h2 className="text-2xl md:text-4xl font-bold text-gray-900">Related Courses</h2>
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
+            Related Courses
+          </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {relatedCourses.map((course, index) => (

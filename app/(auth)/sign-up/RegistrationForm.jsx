@@ -195,10 +195,28 @@ const RegistrationForm = () => {
                 >
                   {showCurrent ? <FiEye /> : <FiEyeOff />}
                 </div>
+                <p className="text-sm text-gray-500 mt-4">
+                  By signing up, you agree to our{" "}
+                  <Link
+                    href="/terms?tab=terms-of-use"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Terms of Service
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="/terms?tab=privacy"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                  .
+                </p>
                 {errors.password && (
                   <p className="text-red-600 text-sm mt-1">{errors.password}</p>
                 )}
               </div>
+
               {/* Save Information Checkbox */}
               {/* <div className="flex items-start">
                   <input

@@ -59,12 +59,15 @@ const CourseDetailsPage = ({ slug }) => {
     course?.id
   );
 
-  const relatedCoursesList = courseData.filter(
-    (b) => b.title !== course?.title
+  const relatedCourses = courseData.filter(
+    (b) =>
+      b.title !== course?.title &&
+      b.is_published &&
+      b.categoryname === course?.categoryname
   );
-  const relatedCourses = relatedCoursesList.filter(
-    (c) => c.categoryname === course?.categoryname
-  );
+  // const relatedCourses = relatedCoursesList.filter(
+  //   (c) => c.categoryname === course?.categoryname
+  // );
 
   console.log(relatedCourses);
 
@@ -127,7 +130,7 @@ const CourseDetailsPage = ({ slug }) => {
       setLessonData(response.data.data.filter((l) => l.is_published));
     } catch (error) {
       console.error("Error fetching data:", error);
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
